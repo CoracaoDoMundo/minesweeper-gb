@@ -1,0 +1,53 @@
+@import './styles/fonts.css';
+
+body {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-family: 'Mines-weeper';
+  gap: 20px;
+}
+
+.header {
+  margin: 20px 0 0;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 45%;
+}
+
+.button {
+  font-family: 'Mines-weeper';
+  width: 30%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.fieldWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+}
+
+.timerWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin: 0.5em;
+}
+
+.field {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: fit-content;
+  border: 2px solid black;
+}
+
+.closedCell {
+  border: 1px solid aquamarine;
+  width: 20px;
+  height: 20px;
+}
