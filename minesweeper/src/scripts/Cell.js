@@ -16,11 +16,15 @@ class Cell {
   }
 
   render(width, parent) {
-    const item = createElement('div', ['cell'], parent);
-    item.style.width = width;
-    item.style.height = width;
-    return item.outerHTML;
+    this.item = createElement('div', ['cell'], parent);
+    this.item.style.width = width;
+    this.item.style.height = width;
+    return this.item.outerHTML;
   }
+
+  // addEventListeners() {
+  //   this.item.addEventListener('click', (event) => { console.log(event.target); });
+  // }
 }
 
 export default Cell;

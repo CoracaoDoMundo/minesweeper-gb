@@ -70,10 +70,7 @@ const createFieldArr = (fieldSide, minesQuantity, clicked) => {
           arr[i][j] += 1;
         }
       } else if (
-        arr[i][j] === 0 &&
-        i === arr[0].length - 1 &&
-        j === arr.length - 1
-      ) {
+        arr[i][j] === 0 && i === arr[0].length - 1 && j === arr.length - 1) {
         if (arr[i - 1][j] === 'ghost') {
           arr[i][j] += 1;
         }
@@ -173,6 +170,6 @@ const createFieldArr = (fieldSide, minesQuantity, clicked) => {
   return arr;
 };
 
-// console.log(createFieldArr(10, 10, 87));
+// console.log(createFieldArr(10, 20, 87));
 
 export { createElement, createFieldArr };
