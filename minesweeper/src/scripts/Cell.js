@@ -9,22 +9,20 @@ class Cell {
     this.value = value;
     this.state = state;
     this.mark = mark;
+    this.textContent = value;
   }
 
   setValue(value) {
     this.value = value;
   }
 
-  render(width, parent) {
+  render(width, parent, num) {
     this.item = createElement('div', ['cell'], parent);
     this.item.style.width = width;
     this.item.style.height = width;
+    this.item.textContent = num;
     return this.item.outerHTML;
   }
-
-  // addEventListeners() {
-  //   this.item.addEventListener('click', (event) => { console.log(event.target); });
-  // }
 }
 
 export default Cell;
