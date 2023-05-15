@@ -18,9 +18,11 @@ class Cell {
 
   render(width, parent, num) {
     this.item = createElement('div', ['cell'], parent);
+    const valueNum = createElement('span', ['value'], this.item);
+    const cover = createElement('div', ['cover'], this.item);
+    cover.textContent = num;
     this.item.style.width = width;
     this.item.style.height = width;
-    this.item.textContent = num;
     return this.item.outerHTML;
   }
 }

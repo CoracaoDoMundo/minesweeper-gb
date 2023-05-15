@@ -27,34 +27,34 @@ class Field {
   fillFieldWithValues(fieldArr) {
     for (let i = 0; i < fieldArr.length; i++) {
       if (fieldArr[i] === 'ghost') {
-        document.querySelectorAll('.cell')[i].textContent = '';
+        document.querySelectorAll('.value')[i].textContent = '';
         document
-          .querySelectorAll('.cell')
+          .querySelectorAll('.value')
           [i].insertAdjacentHTML(
             'afterbegin',
             `<img src="${ghostPic}" class="ghostImg">`,
           );
       } else if (fieldArr[i] === 0) {
-        document.querySelectorAll('.cell')[i].textContent = '';
+        document.querySelectorAll('.value')[i].textContent = '';
       } else {
         if (fieldArr[i] === 8) {
-          document.querySelectorAll('.cell')[i].style.color = '#470100';
+          document.querySelectorAll('.value')[i].style.color = '#470100';
         } else if (fieldArr[i] === 7) {
-          document.querySelectorAll('.cell')[i].style.color = '#6b0200';
+          document.querySelectorAll('.value')[i].style.color = '#6b0200';
         } else if (fieldArr[i] === 6) {
-          document.querySelectorAll('.cell')[i].style.color = '#8e0200';
+          document.querySelectorAll('.value')[i].style.color = '#8e0200';
         } else if (fieldArr[i] === 5) {
-          document.querySelectorAll('.cell')[i].style.color = '#b20300';
+          document.querySelectorAll('.value')[i].style.color = '#b20300';
         } else if (fieldArr[i] === 4) {
-          document.querySelectorAll('.cell')[i].style.color = '#d60400';
+          document.querySelectorAll('.value')[i].style.color = '#d60400';
         } else if (fieldArr[i] === 3) {
-          document.querySelectorAll('.cell')[i].style.color = '#f90400';
+          document.querySelectorAll('.value')[i].style.color = '#f90400';
         } else if (fieldArr[i] === 2) {
-          document.querySelectorAll('.cell')[i].style.color = '#ff4542';
+          document.querySelectorAll('.value')[i].style.color = '#ff4542';
         } else if (fieldArr[i] === 1) {
-          document.querySelectorAll('.cell')[i].style.color = '#ff6866';
+          document.querySelectorAll('.value')[i].style.color = '#ff6866';
         }
-        document.querySelectorAll('.cell')[i].textContent = fieldArr[i];
+        document.querySelectorAll('.value')[i].textContent = fieldArr[i];
       }
     }
   }
@@ -99,18 +99,19 @@ class Field {
 
   clickLeftBtn(event) {
     if (this.counterNum === 0) {
-      console.log('clicked num:', Number(event.target.textContent));
+      // console.log('clicked num:', Number(event.target.textContent));
       const fieldArr = createFieldArr(
         this.fieldSize,
         this.minesQuantity,
         Number(event.target.textContent)
       );
       this.countMoves();
-      console.log('field arr:', fieldArr);
+      // console.log('field arr:', fieldArr);
       this.fillFieldWithValues(fieldArr);
 
       // console.log(fieldArr);
-      // console.log(event.target.textContent);
+      console.log('event.target:', event.target.textContent);
+      event.target.remove();
       // console.log(typeof Number(event.target.textContent));
     } else {
       this.countMoves();

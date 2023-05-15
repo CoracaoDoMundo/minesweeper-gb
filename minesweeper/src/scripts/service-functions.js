@@ -16,7 +16,6 @@ const createFieldArr = (fieldSide, minesQuantity, clicked) => {
   while (num > 0) {
     const ghost = Math.floor(Math.random() * fieldSize);
     if (arr[ghost] !== 'ghost' && ghost !== clicked) {
-      console.log(ghost);
       arr[ghost] = 'ghost';
       num--;
     }
