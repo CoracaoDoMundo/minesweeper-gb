@@ -3,6 +3,7 @@
 // Set up size of the board
 
 import Cell from './Cell.js';
+import { createElement } from './service-functions.js';
 
 class Field {
   constructor(fieldSize = 10) {
@@ -13,28 +14,24 @@ class Field {
     this.fieldSize = fieldSize;
   }
 
+  fillField(width) {
+    for (let i = 0; i < this.fieldSize ** 2; i++) {
+      const newCell = new Cell(0);
+      this.item.innerHTML += newCell.render(width, this.item);
+    }
+  }
+
   render(container) {
-    this.item = document.createElement('div');
-    this.item.classList.add('field');
-
-    const fieldWrapper = document.createElement('div');
-    fieldWrapper.classList.add('fieldWrapper');
-    const timerWrapper = document.createElement('div');
-    timerWrapper.classList.add('timerWrapper');
-    const timer = document.createElement('span');
+    const fieldWrapper = createElement('div', ['fieldWrapper'], container);
+    const timerWrapper = createElement('div', ['timerWrapper'], fieldWrapper);
+    const timer = createElement('span', ['timer'], timerWrapper);
     timer.textContent = '00:00';
-    const counter = document.createElement('span');
+    const counter = createElement('span', ['counter'], timerWrapper);
     counter.textContent = '000';
+    this.item = createElement('div', ['field'], fieldWrapper);
 
-    container.append(fieldWrapper);
-    fieldWrapper.append(timerWrapper);
-    timerWrapper.append(timer);
-    timerWrapper.append(counter);
-    fieldWrapper.append(this.item);
-
-    const newCell = new Cell(0, '20px');
-    newCell.render();
-    this.item.append(newCell);
+    console.log(this.item.clientWidth);
+    this.fillField(`${this.item.clientWidth / this.fieldSize}px`);
   }
 }
 

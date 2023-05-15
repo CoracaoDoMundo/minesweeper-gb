@@ -42,7 +42,7 @@ module.exports = {
           filename: path.join(
             'assets',
             'sounds',
-            '[name].[contenthash:8][ext]'
+            '[name].[contenthash:8][ext]',
           ),
         },
       },
