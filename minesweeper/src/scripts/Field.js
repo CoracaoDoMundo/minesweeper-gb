@@ -127,7 +127,7 @@ class Field {
     );
   }
 
-  checkForWinning() {
+  checkForWinning(event) {
     this.closedCells = 0;
     for (let i = 0; i < this.covers[0].length; i++) {
       for (let j = 0; j < this.covers.length; j++) {
@@ -136,12 +136,24 @@ class Field {
         }
       }
     }
-    this.announceVictory();
+    this.announceVictory(event);
   }
 
-  announceVictory() {
+  announceVictory(event) {
     if (this.closedCells === this.minesQuantity) {
+      this.controlFieldBlocker();
+      event.stopPropagation();
       alert('You won!');
+    }
+  }
+
+  controlFieldBlocker() {
+    let blocker;
+    if (this.item.contains(blocker)) {
+      blocker.remove();
+    } else {
+      blocker = createElement('div', ['blocker'], this.item);
+      this.item.append(blocker);
     }
   }
 
@@ -178,20 +190,22 @@ class Field {
       event.target.style.background = 'transparent';
       event.target.setAttribute('isopen', true);
       this.openCells(x, y, this.covers, this.values);
-      this.checkForWinning();
+      this.checkForWinning(event);
+    } else if (event.target.className === 'blocker') {
+      return;
     } else if (this.fieldArr[x][y] !== 'ghost') {
       this.countMoves();
       event.target.style.background = 'transparent';
       event.target.setAttribute('isopen', true);
       this.openCells(x, y, this.covers, this.values);
-      this.checkForWinning();
+      this.checkForWinning(event);
     } else if (this.fieldArr[x][y] === 'ghost') {
       this.countMoves();
       event.target.style.background = 'transparent';
       event.target.setAttribute('isopen', true);
-      this.checkForWinning();
+      this.controlFieldBlocker();
       alert('game over!');
-    }
+    } 
   }
 }
 
