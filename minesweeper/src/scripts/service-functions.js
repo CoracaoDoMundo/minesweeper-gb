@@ -70,7 +70,10 @@ const createFieldArr = (fieldSide, minesQuantity, clicked) => {
           arr[i][j] += 1;
         }
       } else if (
-        arr[i][j] === 0 && i === arr[0].length - 1 && j === arr.length - 1) {
+        arr[i][j] === 0 &&
+        i === arr[0].length - 1 &&
+        j === arr.length - 1
+      ) {
         if (arr[i - 1][j] === 'ghost') {
           arr[i][j] += 1;
         }
@@ -167,9 +170,18 @@ const createFieldArr = (fieldSide, minesQuantity, clicked) => {
       }
     }
   }
-  return arr.flat();
+  return arr;
 };
 
-// console.log(createFieldArr(10, 20, 87));
+const splitArray = (array, fieldSide) => {
+  const arr = [];
+  for (let i = 0; i <= fieldSide - 1; i++) {
+    const piece = array.splice(0, fieldSide);
+    arr.push(piece);
+  }
+  return arr;
+};
 
-export { createElement, createFieldArr };
+// console.log(splitArray(array, 3));
+
+export { createElement, createFieldArr, splitArray };

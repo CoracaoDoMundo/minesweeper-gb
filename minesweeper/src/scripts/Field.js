@@ -3,14 +3,18 @@
 // Set up size of the board
 
 import Cell from './Cell.js';
-import { createElement, createFieldArr } from './service-functions.js';
-import ghostPic from '../assets/img/ghost.png';
+import {
+  createElement,
+  createFieldArr,
+  splitArray,
+} from './service-functions.js';
+import ghostPic from '../assets/img/ghost_thick_wb.png';
 
 class Field {
   constructor(fieldSize = 10) {
     this.fieldSize = fieldSize;
     this.counter = 0;
-    this.minesQuantity = 40;
+    this.minesQuantity = 10;
   }
 
   setSize(fieldSize) {
@@ -24,37 +28,38 @@ class Field {
     }
   }
 
-  fillFieldWithValues(fieldArr) {
-    for (let i = 0; i < fieldArr.length; i++) {
-      if (fieldArr[i] === 'ghost') {
+  fillFieldWithValues() {
+    for (let i = 0; i < this.fieldArr.flat().length; i++) {
+      if (this.fieldArr.flat()[i] === 'ghost') {
         document.querySelectorAll('.value')[i].textContent = '';
         document
           .querySelectorAll('.value')
           [i].insertAdjacentHTML(
             'afterbegin',
-            `<img src="${ghostPic}" class="ghostImg">`,
+            `<img src="${ghostPic}" class="ghostImg">`
           );
-      } else if (fieldArr[i] === 0) {
+      } else if (this.fieldArr.flat()[i] === 0) {
         document.querySelectorAll('.value')[i].textContent = '';
       } else {
-        if (fieldArr[i] === 8) {
+        if (this.fieldArr.flat()[i] === 8) {
           document.querySelectorAll('.value')[i].style.color = '#470100';
-        } else if (fieldArr[i] === 7) {
+        } else if (this.fieldArr.flat()[i] === 7) {
           document.querySelectorAll('.value')[i].style.color = '#6b0200';
-        } else if (fieldArr[i] === 6) {
+        } else if (this.fieldArr.flat()[i] === 6) {
           document.querySelectorAll('.value')[i].style.color = '#8e0200';
-        } else if (fieldArr[i] === 5) {
+        } else if (this.fieldArr.flat()[i] === 5) {
           document.querySelectorAll('.value')[i].style.color = '#b20300';
-        } else if (fieldArr[i] === 4) {
+        } else if (this.fieldArr.flat()[i] === 4) {
           document.querySelectorAll('.value')[i].style.color = '#d60400';
-        } else if (fieldArr[i] === 3) {
+        } else if (this.fieldArr.flat()[i] === 3) {
           document.querySelectorAll('.value')[i].style.color = '#f90400';
-        } else if (fieldArr[i] === 2) {
+        } else if (this.fieldArr.flat()[i] === 2) {
           document.querySelectorAll('.value')[i].style.color = '#ff4542';
-        } else if (fieldArr[i] === 1) {
+        } else if (this.fieldArr.flat()[i] === 1) {
           document.querySelectorAll('.value')[i].style.color = '#ff6866';
         }
-        document.querySelectorAll('.value')[i].textContent = fieldArr[i];
+        document.querySelectorAll('.value')[i].textContent =
+          this.fieldArr.flat()[i];
       }
     }
   }
@@ -91,6 +96,37 @@ class Field {
       .padStart(this.counterLength, '0');
   }
 
+  openCells(i, j, covers, values) {
+    if (!values[i][j].textContent) {
+      covers[i][j].style.background = 'transparent';
+      covers[i][j].setAttribute('isopen', true);
+      for (let k = i - 1; k <= i + 1; k++) {
+        for (let l = j - 1; l <= j + 1; l++) {
+          if (k < 0 || l < 0 || k >= this.fieldSize || l >= this.fieldSize) {
+            continue;
+          } else if (covers[k][l].getAttribute('isopen') === 'true') {
+            continue;
+          } else {
+            covers[k][l].style.background = 'transparent';
+            covers[k][l].setAttribute('isopen', true);
+            this.openCells(k, l, covers, values);
+          }
+        }
+      }
+    } else if (values[i][j].textContent === '') {
+      covers[i][j].style.background = 'transparent';
+      covers[i][j].setAttribute('isopen', true);
+    }
+  }
+
+  formArrForGame(event) {
+    this.fieldArr = createFieldArr(
+      this.fieldSize,
+      this.minesQuantity,
+      Number(event.target.textContent)
+    );
+  }
+
   addEventListeners() {
     this.item.addEventListener('click', (event) => {
       this.clickLeftBtn(event);
@@ -98,23 +134,42 @@ class Field {
   }
 
   clickLeftBtn(event) {
+    const num = event.target.textContent;
+    const values = splitArray(
+      Array.from(document.querySelectorAll('.value')),
+      this.fieldSize
+    );
+    const covers = splitArray(
+      Array.from(document.querySelectorAll('.cover')),
+      this.fieldSize
+    );
+    let x;
+    let y;
+    for (let i = 0; i < covers[0].length; i++) {
+      for (let j = 0; j < covers.length; j++) {
+        if (covers[i][j].textContent === num) {
+          x = i;
+          y = j;
+        }
+      }
+    }
     if (this.counterNum === 0) {
-      // console.log('clicked num:', Number(event.target.textContent));
-      const fieldArr = createFieldArr(
-        this.fieldSize,
-        this.minesQuantity,
-        Number(event.target.textContent)
-      );
       this.countMoves();
-      // console.log('field arr:', fieldArr);
-      this.fillFieldWithValues(fieldArr);
-
-      // console.log(fieldArr);
-      console.log('event.target:', event.target.textContent);
-      event.target.remove();
-      // console.log(typeof Number(event.target.textContent));
-    } else {
+      this.formArrForGame(event);
+      this.fillFieldWithValues();
+      event.target.style.background = 'transparent';
+      event.target.setAttribute('isopen', true);
+      this.openCells(x, y, covers, values);
+    } else if (this.fieldArr[x][y] !== 'ghost') {
       this.countMoves();
+      event.target.style.background = 'transparent';
+      event.target.setAttribute('isopen', true);
+      this.openCells(x, y, covers, values);
+    } else if (this.fieldArr[x][y] === 'ghost') {
+      this.countMoves();
+      event.target.style.background = 'transparent';
+      event.target.setAttribute('isopen', true);
+      alert('game over!');
     }
   }
 }

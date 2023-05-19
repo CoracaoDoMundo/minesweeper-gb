@@ -1,13 +1,11 @@
 // Class for control buttons
 
+import { createElement } from './service-functions.js';
+
 class Button {
   constructor(container, name) {
-    this.item = document.createElement('button');
-
+    this.item = createElement('div', ['button'], container);
     this.item.textContent = name;
-    this.item.classList.add('button');
-
-    container.append(this.item);
   }
 }
 

@@ -1,13 +1,10 @@
-// Class for multipurpose container
+// Class for buttons container
 import Button from './Button.js';
+import { createElement } from './service-functions.js';
 
-class BtnWrapper {
+class BtnBlock {
   constructor(container) {
-    this.item = document.createElement('div');
-
-    this.item.classList.add('btnWrapper');
-
-    container.append(this.item);
+    this.item = createElement('div', ['btnWrapper'], container);
   }
 
   render() {
@@ -20,4 +17,4 @@ class BtnWrapper {
   }
 }
 
-export default BtnWrapper;
+export default BtnBlock;
