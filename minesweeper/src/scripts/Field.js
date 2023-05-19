@@ -127,6 +127,24 @@ class Field {
     );
   }
 
+  checkForWinning() {
+    this.closedCells = 0;
+    for (let i = 0; i < this.covers[0].length; i++) {
+      for (let j = 0; j < this.covers.length; j++) {
+        if (this.covers[i][j].getAttribute('isopen') === 'false') {
+          this.closedCells += 1;
+        }
+      }
+    }
+    this.announceVictory();
+  }
+
+  announceVictory() {
+    if (this.closedCells === this.minesQuantity) {
+      alert('You won!');
+    }
+  }
+
   addEventListeners() {
     this.item.addEventListener('click', (event) => {
       this.clickLeftBtn(event);
@@ -135,19 +153,19 @@ class Field {
 
   clickLeftBtn(event) {
     const num = event.target.textContent;
-    const values = splitArray(
+    this.values = splitArray(
       Array.from(document.querySelectorAll('.value')),
       this.fieldSize
     );
-    const covers = splitArray(
+    this.covers = splitArray(
       Array.from(document.querySelectorAll('.cover')),
       this.fieldSize
     );
     let x;
     let y;
-    for (let i = 0; i < covers[0].length; i++) {
-      for (let j = 0; j < covers.length; j++) {
-        if (covers[i][j].textContent === num) {
+    for (let i = 0; i < this.covers[0].length; i++) {
+      for (let j = 0; j < this.covers.length; j++) {
+        if (this.covers[i][j].textContent === num) {
           x = i;
           y = j;
         }
@@ -159,16 +177,19 @@ class Field {
       this.fillFieldWithValues();
       event.target.style.background = 'transparent';
       event.target.setAttribute('isopen', true);
-      this.openCells(x, y, covers, values);
+      this.openCells(x, y, this.covers, this.values);
+      this.checkForWinning();
     } else if (this.fieldArr[x][y] !== 'ghost') {
       this.countMoves();
       event.target.style.background = 'transparent';
       event.target.setAttribute('isopen', true);
-      this.openCells(x, y, covers, values);
+      this.openCells(x, y, this.covers, this.values);
+      this.checkForWinning();
     } else if (this.fieldArr[x][y] === 'ghost') {
       this.countMoves();
       event.target.style.background = 'transparent';
       event.target.setAttribute('isopen', true);
+      this.checkForWinning();
       alert('game over!');
     }
   }
