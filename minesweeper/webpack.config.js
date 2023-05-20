@@ -36,13 +36,13 @@ module.exports = {
         },
       },
       {
-        test: /\.(mp3)$/,
+        test: /\.(mp3|wav)$/,
         type: 'asset',
         generator: {
           filename: path.join(
             'assets',
             'sounds',
-            '[name].[contenthash:8][ext]',
+            '[name].[contenthash:8][ext]'
           ),
         },
       },

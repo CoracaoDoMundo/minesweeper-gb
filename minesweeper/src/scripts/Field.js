@@ -9,16 +9,55 @@ import {
   splitArray,
 } from './service-functions.js';
 import ghostPic from '../assets/img/ghost_thick_wb.png';
+import openCellSound from '../assets/sounds/cell-open.mp3';
+import gameOverSound from '../assets/sounds/game-over.mp3';
+import mainTheme from '../assets/sounds/Ray_Parker_Jr._-_Ghostbusters.mp3';
+
+const gameOverAudio = new Audio(gameOverSound);
+const openCellAudio = new Audio(openCellSound);
 
 class Field {
-  constructor(fieldSize = 10) {
+  constructor(input, soundsState, musicState, fieldSize = 10) {
     this.fieldSize = fieldSize;
     this.counter = 0;
-    this.minesQuantity = 10;
+    this.input = input;
+    this.closedCells = this.fieldSize ** 2;
+    this.gameOverSound = gameOverAudio;
+    this.soundsState = soundsState;
+    this.musicState = musicState;
+    this.audio = new Audio(mainTheme);
+    this.audio.volume = 0.2;
+  }
+
+  render(container) {
+    const fieldWrapper = createElement('div', ['fieldWrapper'], container);
+    const timerWrapper = createElement('div', ['timerWrapper'], fieldWrapper);
+    this.createTimer(timerWrapper);
+    this.createCounter(timerWrapper);
+    this.item = createElement('div', ['field'], fieldWrapper);
+
+    this.fillStartField(`${this.item.clientWidth / this.fieldSize}px`);
+    this.addEventListeners();
   }
 
   setSize(fieldSize) {
     this.fieldSize = fieldSize;
+  }
+
+  controlMusicOnPage() {
+    if (this.musicState.state === true) {
+      this.audio.play();
+    } else if (this.musicState.state === false) {
+      this.audio.pause();
+    }
+  }
+
+  restartGame() {
+    this.counterNum = -1;
+    this.countMoves();
+    this.item.textContent = '';
+    this.fillStartField(`${this.item.clientWidth / this.fieldSize}px`);
+    this.closedCells = this.fieldSize ** 2;
   }
 
   fillStartField(width) {
@@ -26,6 +65,10 @@ class Field {
       const newCell = new Cell();
       this.item.innerHTML += newCell.render(width, this.item, i);
     }
+    this.covers = splitArray(
+      Array.from(document.querySelectorAll('.cover')),
+      this.fieldSize
+    );
   }
 
   fillFieldWithValues() {
@@ -62,17 +105,6 @@ class Field {
           this.fieldArr.flat()[i];
       }
     }
-  }
-
-  render(container) {
-    const fieldWrapper = createElement('div', ['fieldWrapper'], container);
-    const timerWrapper = createElement('div', ['timerWrapper'], fieldWrapper);
-    this.createTimer(timerWrapper);
-    this.createCounter(timerWrapper);
-    this.item = createElement('div', ['field'], fieldWrapper);
-
-    this.fillStartField(`${this.item.clientWidth / this.fieldSize}px`);
-    this.addEventListeners();
   }
 
   createTimer(parent) {
@@ -117,17 +149,18 @@ class Field {
       covers[i][j].style.background = 'transparent';
       covers[i][j].setAttribute('isopen', true);
     }
+    this.checkForWinning();
   }
 
   formArrForGame(event) {
     this.fieldArr = createFieldArr(
       this.fieldSize,
-      this.minesQuantity,
+      this.input.minesQuantity,
       Number(event.target.textContent)
     );
   }
 
-  checkForWinning(event) {
+  checkForWinning() {
     this.closedCells = 0;
     for (let i = 0; i < this.covers[0].length; i++) {
       for (let j = 0; j < this.covers.length; j++) {
@@ -136,15 +169,24 @@ class Field {
         }
       }
     }
-    this.announceVictory(event);
+    if (this.closedCells === Number(this.input.minesQuantity)) {
+      this.announceVictory();
+    }
+    // console.log(this.input.minesQuantity);
+    // console.log(this.closedCells);
   }
 
-  announceVictory(event) {
-    if (this.closedCells === this.minesQuantity) {
-      this.controlFieldBlocker();
-      event.stopPropagation();
-      alert(`You won the game for ${this.counterNum} moves and ${this.timer.textContent}!`);
+  announceVictory() {
+    this.controlFieldBlocker();
+    for (let i = 0; i < this.covers[0].length; i++) {
+      for (let j = 0; j < this.covers.length; j++) {
+        this.covers[i][j].setAttribute('isopen', 'true');
+        this.covers[i][j].style.background = 'transparent';
+      }
     }
+    alert(
+      `You won the game for ${this.counterNum} moves and ${this.timer.textContent}!`
+    );
   }
 
   controlFieldBlocker() {
@@ -169,10 +211,6 @@ class Field {
       Array.from(document.querySelectorAll('.value')),
       this.fieldSize
     );
-    this.covers = splitArray(
-      Array.from(document.querySelectorAll('.cover')),
-      this.fieldSize
-    );
     let x;
     let y;
     for (let i = 0; i < this.covers[0].length; i++) {
@@ -184,30 +222,35 @@ class Field {
       }
     }
     if (this.counterNum === 0) {
+      this.controlMusicOnPage();
       this.countMoves();
       this.formArrForGame(event);
       this.fillFieldWithValues();
       event.target.style.background = 'transparent';
       event.target.setAttribute('isopen', true);
       this.openCells(x, y, this.covers, this.values);
-      this.checkForWinning(event);
+      openCellAudio.play();
     } else if (event.target.className === 'blocker') {
       return;
     } else if (this.fieldArr[x][y] !== 'g') {
       if (event.target.getAttribute('isopen') !== 'true') {
         this.countMoves();
+        openCellAudio.play();
       }
       event.target.style.background = 'transparent';
       event.target.setAttribute('isopen', true);
       this.openCells(x, y, this.covers, this.values);
-      this.checkForWinning(event);
     } else if (this.fieldArr[x][y] === 'g') {
       this.countMoves();
       event.target.style.background = 'transparent';
       event.target.setAttribute('isopen', true);
       this.controlFieldBlocker();
+      if (this.soundsState.state === true) {
+        this.gameOverSound.play();
+      }
       alert('game over!');
-    } 
+      this.restartGame();
+    }
   }
 }
 

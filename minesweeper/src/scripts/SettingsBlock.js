@@ -9,7 +9,8 @@ class Settings {
   }
 
   render() {
-    const input = new Input(this.item, 'How many ghosts you want to bust? ', 'ghostNum');
+    this.input = new Input(this.item, 'How many ghosts you want to bust? ', 'ghostNum');
+    this.input.setMinesQuantity();
   }
 }
 

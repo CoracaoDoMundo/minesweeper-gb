@@ -6,12 +6,19 @@ import Field from './scripts/Field.js';
 import Header from './scripts/Header.js';
 import Settings from './scripts/SettingsBlock.js';
 
-const gameHeader = new Header(document.body);
-const buttonsWrapper = new BtnBlock(document.body);
-buttonsWrapper.render();
+const isSoundsOn = {
+  state: true,
+};
+const isMusicOn = {
+  state: false,
+};
 
-const gameField = new Field();
-gameField.render(document.body);
+const gameHeader = new Header(document.body);
+const buttonsWrapper = new BtnBlock(document.body, isSoundsOn);
+buttonsWrapper.render();
 
 const settingsBlock = new Settings(document.body);
 settingsBlock.render(document.body);
+
+const gameField = new Field(settingsBlock.input, isSoundsOn, isMusicOn);
+gameField.render(document.body);

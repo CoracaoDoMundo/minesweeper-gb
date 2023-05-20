@@ -104,6 +104,7 @@ body {
   align-items: center;
   gap: 20px;
   margin: 0 0 1em 0;
+  order: 5;
 }
 
 .label {

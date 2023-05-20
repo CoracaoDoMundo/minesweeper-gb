@@ -2,7 +2,6 @@ const createElement = (tagName, [...classNames], parentNode) => {
   const element = document.createElement(tagName);
   element.classList.add([...classNames]);
   parentNode.append(element);
-
   return element;
 };
 

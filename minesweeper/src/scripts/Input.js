@@ -13,6 +13,22 @@ class Input {
     this.item.setAttribute('min', '10');
     this.item.setAttribute('max', '99');
     this.item.setAttribute('value', '10');
+    this.minesQuantity = this.item.value;
+  }
+
+  setMinesQuantity() {
+    // this.item.addEventListener('focusin', () => {
+    //   alert('Attention! This will start the game over! Are you sure you want to do this?');
+    // });
+
+    this.item.addEventListener(
+      'input',
+      () => {
+        this.minesQuantity = this.item.value;
+        console.log('something');
+      },
+      false
+    );
   }
 }
 
