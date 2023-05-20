@@ -143,7 +143,7 @@ class Field {
     if (this.closedCells === this.minesQuantity) {
       this.controlFieldBlocker();
       event.stopPropagation();
-      alert('You won!');
+      alert(`You won the game for ${this.counterNum} moves and ${this.timer.textContent}!`);
     }
   }
 
@@ -194,7 +194,9 @@ class Field {
     } else if (event.target.className === 'blocker') {
       return;
     } else if (this.fieldArr[x][y] !== 'ghost') {
-      this.countMoves();
+      if (event.target.getAttribute('isopen') !== 'true') {
+        this.countMoves();
+      }
       event.target.style.background = 'transparent';
       event.target.setAttribute('isopen', true);
       this.openCells(x, y, this.covers, this.values);
