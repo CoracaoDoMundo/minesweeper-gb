@@ -30,7 +30,7 @@ class Field {
 
   fillFieldWithValues() {
     for (let i = 0; i < this.fieldArr.flat().length; i++) {
-      if (this.fieldArr.flat()[i] === 'ghost') {
+      if (this.fieldArr.flat()[i] === 'g') {
         document.querySelectorAll('.value')[i].textContent = '';
         document
           .querySelectorAll('.value')
@@ -193,7 +193,7 @@ class Field {
       this.checkForWinning(event);
     } else if (event.target.className === 'blocker') {
       return;
-    } else if (this.fieldArr[x][y] !== 'ghost') {
+    } else if (this.fieldArr[x][y] !== 'g') {
       if (event.target.getAttribute('isopen') !== 'true') {
         this.countMoves();
       }
@@ -201,7 +201,7 @@ class Field {
       event.target.setAttribute('isopen', true);
       this.openCells(x, y, this.covers, this.values);
       this.checkForWinning(event);
-    } else if (this.fieldArr[x][y] === 'ghost') {
+    } else if (this.fieldArr[x][y] === 'g') {
       this.countMoves();
       event.target.style.background = 'transparent';
       event.target.setAttribute('isopen', true);

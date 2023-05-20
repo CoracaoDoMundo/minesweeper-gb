@@ -15,8 +15,8 @@ const createFieldArr = (fieldSide, minesQuantity, clicked) => {
 
   while (num > 0) {
     const ghost = Math.floor(Math.random() * fieldSize);
-    if (arr[ghost] !== 'ghost' && ghost !== clicked) {
-      arr[ghost] = 'ghost';
+    if (arr[ghost] !== 'g' && ghost !== clicked) {
+      arr[ghost] = 'g';
       num--;
     }
   }
@@ -28,144 +28,17 @@ const createFieldArr = (fieldSide, minesQuantity, clicked) => {
 
   for (let i = 0; i < arr[0].length; i++) {
     for (let j = 0; j < arr.length; j++) {
-      if (
-        arr[i][j] === 0 &&
-        i !== 0 &&
-        j !== 0 &&
-        i !== arr[0].length - 1 &&
-        j !== arr.length - 1
-      ) {
-        if (arr[i + 1][j] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i - 1][j] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i][j - 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i][j + 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i - 1][j - 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i + 1][j - 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i - 1][j + 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i + 1][j + 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-      } else if (arr[i][j] === 0 && i === 0 && j === 0) {
-        if (arr[i + 1][j] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i][j + 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i + 1][j + 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-      } else if (
-        arr[i][j] === 0 &&
-        i === arr[0].length - 1 &&
-        j === arr.length - 1
-      ) {
-        if (arr[i - 1][j] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i][j - 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i - 1][j - 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-      } else if (arr[i][j] === 0 && i === arr[0].length - 1 && j === 0) {
-        if (arr[i - 1][j] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i][j + 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i - 1][j + 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-      } else if (arr[i][j] === 0 && i === 0 && j === arr.length - 1) {
-        if (arr[i + 1][j] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i][j - 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i + 1][j + 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-      } else if (arr[i][j] === 0 && i === 0) {
-        if (arr[i + 1][j] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i][j - 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i][j + 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i + 1][j - 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i + 1][j + 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-      } else if (arr[i][j] === 0 && i === arr[0].length - 1) {
-        if (arr[i - 1][j] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i][j - 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i][j + 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i - 1][j - 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i - 1][j + 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-      } else if (arr[i][j] === 0 && j === 0) {
-        if (arr[i - 1][j] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i + 1][j] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i][j + 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i - 1][j + 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i + 1][j + 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-      } else if (arr[i][j] === 0 && j === arr.length - 1) {
-        if (arr[i - 1][j] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i + 1][j] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i][j - 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i - 1][j - 1] === 'ghost') {
-          arr[i][j] += 1;
-        }
-        if (arr[i + 1][j - 1] === 'ghost') {
-          arr[i][j] += 1;
+      if (arr[i][j] === 'g') {
+        for (let k = i - 1; k <= i + 1; k++) {
+          for (let l = j - 1; l <= j + 1; l++) {
+            if (k < 0 || l < 0 || k >= arr[0].length || l >= arr[0].length) {
+              continue;
+            } else {
+              if (arr[k][l] !== 'g') {
+                arr[k][l] += 1;
+              }
+            }
+          }
         }
       }
     }
@@ -182,6 +55,6 @@ const splitArray = (array, fieldSide) => {
   return arr;
 };
 
-// console.log(splitArray(array, 3));
+// console.log(createFieldArr(10, 40, 5));
 
 export { createElement, createFieldArr, splitArray };
