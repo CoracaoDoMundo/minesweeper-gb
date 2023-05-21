@@ -1,6 +1,5 @@
 // Class for the cell on the game field
-// Create cell constructor
-// Set up value after first click of the user method
+// Create cells for the game field
 
 import { createElement } from './service-functions.js';
 
@@ -10,10 +9,6 @@ class Cell {
     this.state = state;
     this.mark = mark;
     this.textContent = value;
-  }
-
-  setValue(value) {
-    this.value = value;
   }
 
   render(width, parent, num) {

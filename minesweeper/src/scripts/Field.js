@@ -1,6 +1,8 @@
 // Class for game field
 // Create field constructor
 // Set up size of the board
+// Control game process (start, restart, count moves, control timer)
+// Announce victory or loss
 
 import Cell from './Cell.js';
 import {
@@ -52,13 +54,13 @@ class Field {
     }
   }
 
-  restartGame() {
+  restartGame = () => {
     this.counterNum = -1;
     this.countMoves();
     this.item.textContent = '';
     this.fillStartField(`${this.item.clientWidth / this.fieldSize}px`);
     this.closedCells = this.fieldSize ** 2;
-  }
+  };
 
   fillStartField(width) {
     for (let i = 0; i < this.fieldSize ** 2; i++) {
@@ -172,8 +174,6 @@ class Field {
     if (this.closedCells === Number(this.input.minesQuantity)) {
       this.announceVictory();
     }
-    // console.log(this.input.minesQuantity);
-    // console.log(this.closedCells);
   }
 
   announceVictory() {
