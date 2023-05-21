@@ -2,6 +2,7 @@
 
 import { createElement } from './service-functions.js';
 import buttonSound from '../assets/sounds/button-sound.mp3';
+import slimerPic from '../assets/img/slimer.png';
 
 const sound = new Audio(buttonSound);
 
@@ -30,6 +31,7 @@ class Button {
         this.playBtnSound();
       }
       this.restartGame(event);
+      this.pauseGame(event);
     });
   };
 
@@ -56,6 +58,20 @@ class Button {
       this.field.restartGame();
     }
   };
+
+  pauseGame(event) {
+    if (event.target.textContent === 'Pause') {
+      this.item.textContent = 'Continue';
+      this.field.stopTimer();
+      this.field.controlFieldBlocker();
+      document.querySelector('.blocker').classList.add('pauseBlocker');
+      document.querySelector('.blocker').insertAdjacentHTML('afterbegin', `<img src="${slimerPic}" class="slimerImg">`);
+    } else if (event.target.textContent === 'Continue') {
+      this.item.textContent = 'Pause';
+      this.field.startTimer();
+      document.querySelector('.blocker').remove();
+    }
+  }
 }
 
 export default Button;

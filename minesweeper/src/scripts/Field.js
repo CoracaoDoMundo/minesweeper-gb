@@ -33,9 +33,9 @@ class Field {
 
   render(container) {
     const fieldWrapper = createElement('div', ['fieldWrapper'], container);
-    const timerWrapper = createElement('div', ['timerWrapper'], fieldWrapper);
-    this.createTimer(timerWrapper);
-    this.createCounter(timerWrapper);
+    this.timerWrapper = createElement('div', ['timerWrapper'], fieldWrapper);
+    this.createTimer(this.timerWrapper);
+    this.createCounter(this.timerWrapper);
     this.item = createElement('div', ['field'], fieldWrapper);
 
     this.fillStartField(`${this.item.clientWidth / this.fieldSize}px`);
@@ -60,6 +60,9 @@ class Field {
     this.item.textContent = '';
     this.fillStartField(`${this.item.clientWidth / this.fieldSize}px`);
     this.closedCells = this.fieldSize ** 2;
+    this.timer.textContent = '00:00';
+    this.stopTimer();
+    this.relaunchTimer();
   };
 
   fillStartField(width) {
@@ -111,7 +114,33 @@ class Field {
 
   createTimer(parent) {
     this.timer = createElement('span', ['timer'], parent);
-    this.timer.textContent = '00:00';
+    this.s = 0;
+    this.seconds = `${this.s}`.padStart(2, '0');
+    this.m = 0;
+    this.minutes = `${this.m}`.padStart(2, '0');
+    this.timer.textContent = `${this.minutes}:${this.seconds}`;
+  }
+
+  relaunchTimer() {
+    this.s = 0;
+    this.m = 0;
+  }
+
+  startTimer() {
+    this.timerCounter = setInterval(() => {
+      this.s += 1;
+      if (this.s === 60) {
+        this.s = 0;
+        this.m += 1;
+      }
+      this.seconds = `${this.s}`.padStart(2, '0');
+      this.minutes = `${this.m}`.padStart(2, '0');
+      this.timer.textContent = `${this.minutes}:${this.seconds}`;
+    }, 1000);
+  }
+
+  stopTimer() {
+    clearTimeout(this.timerCounter);
   }
 
   createCounter(parent) {
@@ -172,6 +201,7 @@ class Field {
       }
     }
     if (this.closedCells === Number(this.input.minesQuantity)) {
+      this.stopTimer();
       this.announceVictory();
     }
   }
@@ -190,12 +220,11 @@ class Field {
   }
 
   controlFieldBlocker() {
-    let blocker;
-    if (this.item.contains(blocker)) {
-      blocker.remove();
+    if (this.item.contains(this.blocker)) {
+      this.blocker.remove();
     } else {
-      blocker = createElement('div', ['blocker'], this.item);
-      this.item.append(blocker);
+      this.blocker = createElement('div', ['blocker'], this.item);
+      this.item.append(this.blocker);
     }
   }
 
@@ -226,6 +255,7 @@ class Field {
       this.countMoves();
       this.formArrForGame(event);
       this.fillFieldWithValues();
+      this.startTimer();
       event.target.style.background = 'transparent';
       event.target.setAttribute('isopen', true);
       this.openCells(x, y, this.covers, this.values);

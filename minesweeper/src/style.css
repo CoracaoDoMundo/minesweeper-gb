@@ -63,6 +63,12 @@ body {
   margin: 0.5em;
 }
 
+.timer,
+.counter {
+  width: 100px;
+  text-align: center;
+}
+
 .field {
   display: flex;
   flex-wrap: wrap;
@@ -124,6 +130,18 @@ body {
   height: 100%;
   position: absolute;
   z-index: 5;
+}
+
+.pauseBlocker {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: rgb(0, 0, 0);
+}
+
+.slimerImg {
+  transform: rotate(15deg);
+  width: 85%;
 }
 
 .popup {
