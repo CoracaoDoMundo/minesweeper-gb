@@ -11,6 +11,7 @@ import {
   splitArray,
 } from './service-functions.js';
 import ghostPic from '../assets/img/ghost_thick_wb.png';
+import signPic from '../assets/icons/stop-sign.svg';
 import openCellSound from '../assets/sounds/cell-open.mp3';
 import gameOverSound from '../assets/sounds/game-over.mp3';
 import mainTheme from '../assets/sounds/Ray_Parker_Jr._-_Ghostbusters.mp3';
@@ -174,6 +175,8 @@ class Field {
             continue;
           } else if (covers[k][l].getAttribute('isopen') === 'true') {
             continue;
+          } else if (covers[k][l].getAttribute('isflaged') === 'true') {
+            continue;
           } else {
             covers[k][l].style.background = 'transparent';
             covers[k][l].setAttribute('isopen', true);
@@ -237,6 +240,10 @@ class Field {
     this.item.addEventListener('click', (event) => {
       this.clickLeftBtn(event);
     });
+
+    this.item.addEventListener('contextmenu', (event) => {
+      this.clickRightBtn(event);
+    });
   }
 
   clickLeftBtn(event) {
@@ -256,6 +263,10 @@ class Field {
       }
     }
     if (this.counterNum === 0) {
+      if (event.target.className === 'signImg'
+        || event.target.getAttribute('isflaged') === 'true') { 
+        return;
+      }
       this.controlMusicOnPage();
       this.countMoves();
       this.formArrForGame(event);
@@ -268,6 +279,9 @@ class Field {
         openCellAudio.play();
       }
     } else if (event.target.className === 'blocker') {
+      return;
+    } else if (event.target.className === 'signImg'
+      || event.target.getAttribute('isflaged') === 'true') { 
       return;
     } else if (this.fieldArr[x][y] !== 'g') {
       if (event.target.getAttribute('isopen') !== 'true') {
@@ -289,6 +303,33 @@ class Field {
       }
       alert('game over!');
       this.restartGame();
+    }
+  }
+
+  clickRightBtn(event) {
+    event.preventDefault();
+    console.log(event.target.parentNode);
+    if (
+      event.target.className === 'cover'
+      && event.target.getAttribute('isflaged') === 'false'
+    ) {
+      event.target.setAttribute('isflaged', 'true');
+      event.target.insertAdjacentHTML(
+        'afterbegin',
+        `<img src="${signPic}" class="signImg">`
+      );
+    } else if (
+      event.target.className === 'cover'
+      && event.target.getAttribute('isflaged') === 'true'
+    ) {
+      event.target.setAttribute('isflaged', 'false');
+      event.target.childNode.remove();
+    } else if (
+      event.target.className === 'signImg'
+      && event.target.parentNode.getAttribute('isflaged') === 'true'
+    ) {
+      event.target.parentNode.setAttribute('isflaged', 'false');
+      event.target.remove();
     }
   }
 }

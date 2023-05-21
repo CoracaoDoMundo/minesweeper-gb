@@ -35,6 +35,8 @@ const pauseBtn = new Button(gameField, isSoundsOn, isMusicOn, isPause, 'Pause');
 pauseBtn.render(buttonsWrapper.item, 'pause');
 const resultsBtn = new Button(gameField, isSoundsOn, isMusicOn, isPause, 'Results');
 resultsBtn.render(buttonsWrapper.item, 'results');
+const saveGameBtn = new Button(gameField, isSoundsOn, isMusicOn, isPause, 'Save');
+saveGameBtn.render(buttonsWrapper.item, 'save');
 const smallFieldBtn = new Button(gameField, isSoundsOn, isMusicOn, isPause, 'Restart');
 smallFieldBtn.render(buttonsWrapper.item, 'small');
 const mediumFieldBtn = new Button(gameField, isSoundsOn, isMusicOn, isPause, 'Medium');

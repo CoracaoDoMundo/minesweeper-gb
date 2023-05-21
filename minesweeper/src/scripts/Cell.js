@@ -17,6 +17,7 @@ class Cell {
     const cover = createElement('div', ['cover'], this.item);
     cover.textContent = num;
     cover.setAttribute('isopen', this.state);
+    cover.setAttribute('isflaged', this.mark);
     this.item.style.width = width;
     this.item.style.height = width;
     return this.item.outerHTML;

@@ -92,6 +92,9 @@ body {
 }
 
 .cover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   font-size: 0.1px;
   width: 100%;
@@ -102,6 +105,10 @@ body {
 
 .ghostImg {
   width: 95%;
+}
+
+.signImg {
+  width: 85%;
 }
 
 .settingsWrapper {
