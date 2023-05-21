@@ -19,7 +19,7 @@ const gameOverAudio = new Audio(gameOverSound);
 const openCellAudio = new Audio(openCellSound);
 
 class Field {
-  constructor(input, soundsState, musicState, fieldSize = 10) {
+  constructor(input, soundsState, musicState, pauseState, fieldSize = 10) {
     this.fieldSize = fieldSize;
     this.counter = 0;
     this.input = input;
@@ -27,6 +27,7 @@ class Field {
     this.gameOverSound = gameOverAudio;
     this.soundsState = soundsState;
     this.musicState = musicState;
+    this.pauseState = pauseState;
     this.audio = new Audio(mainTheme);
     this.audio.volume = 0.2;
   }
@@ -54,7 +55,7 @@ class Field {
     }
   }
 
-  restartGame = () => {
+  restartGame() {
     this.counterNum = -1;
     this.countMoves();
     this.item.textContent = '';
@@ -63,7 +64,11 @@ class Field {
     this.timer.textContent = '00:00';
     this.stopTimer();
     this.relaunchTimer();
-  };
+    if (this.pauseState.state === true) {
+      this.pauseState.state = false;
+      document.querySelector('.pause').textContent = 'Pause';
+    }
+  }
 
   fillStartField(width) {
     for (let i = 0; i < this.fieldSize ** 2; i++) {
@@ -259,13 +264,17 @@ class Field {
       event.target.style.background = 'transparent';
       event.target.setAttribute('isopen', true);
       this.openCells(x, y, this.covers, this.values);
-      openCellAudio.play();
+      if (this.soundsState.state === true) {
+        openCellAudio.play();
+      }
     } else if (event.target.className === 'blocker') {
       return;
     } else if (this.fieldArr[x][y] !== 'g') {
       if (event.target.getAttribute('isopen') !== 'true') {
         this.countMoves();
-        openCellAudio.play();
+        if (this.soundsState.state === true) {
+          openCellAudio.play();
+        }
       }
       event.target.style.background = 'transparent';
       event.target.setAttribute('isopen', true);

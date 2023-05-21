@@ -11,30 +11,33 @@ const isSoundsOn = {
   state: true,
 };
 const isMusicOn = {
+  state: true,
+};
+
+const isPause = {
   state: false,
 };
 
 const gameHeader = new Header(document.body);
 const buttonsWrapper = new BtnBlock(document.body, isSoundsOn);
-// buttonsWrapper.render(document.body);
 
 const settingsBlock = new Settings(document.body);
 settingsBlock.render(document.body);
 
-const gameField = new Field(settingsBlock.input, isSoundsOn, isMusicOn);
+const gameField = new Field(settingsBlock.input, isSoundsOn, isMusicOn, isPause);
 gameField.render(document.body);
 
-const musicBtn = new Button(gameField, isSoundsOn, 'Music off');
+const musicBtn = new Button(gameField, isSoundsOn, isMusicOn, isPause, 'Music off');
 musicBtn.render(buttonsWrapper.item, 'music');
-const soundBtn = new Button(gameField, isSoundsOn, 'Sound off');
+const soundBtn = new Button(gameField, isSoundsOn, isMusicOn, isPause, 'Sound off');
 soundBtn.render(buttonsWrapper.item, 'sound');
-const pauseBtn = new Button(gameField, isSoundsOn, 'Pause');
+const pauseBtn = new Button(gameField, isSoundsOn, isMusicOn, isPause, 'Pause');
 pauseBtn.render(buttonsWrapper.item, 'pause');
-const resultsBtn = new Button(gameField, isSoundsOn, 'Results');
+const resultsBtn = new Button(gameField, isSoundsOn, isMusicOn, isPause, 'Results');
 resultsBtn.render(buttonsWrapper.item, 'results');
-const smallFieldBtn = new Button(gameField, isSoundsOn, 'Restart');
+const smallFieldBtn = new Button(gameField, isSoundsOn, isMusicOn, isPause, 'Restart');
 smallFieldBtn.render(buttonsWrapper.item, 'small');
-const mediumFieldBtn = new Button(gameField, isSoundsOn, 'Medium');
+const mediumFieldBtn = new Button(gameField, isSoundsOn, isMusicOn, isPause, 'Medium');
 mediumFieldBtn.render(buttonsWrapper.item, 'medium');
-const largeFieldBtn = new Button(gameField, isSoundsOn, 'Large');
+const largeFieldBtn = new Button(gameField, isSoundsOn, isMusicOn, isPause, 'Large');
 largeFieldBtn.render(buttonsWrapper.item, 'large');

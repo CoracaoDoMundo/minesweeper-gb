@@ -7,8 +7,10 @@ import slimerPic from '../assets/img/slimer.png';
 const sound = new Audio(buttonSound);
 
 class Button {
-  constructor(field, soundsState, name) {
+  constructor(field, soundsState, musicState, pauseState, name) {
     this.soundsState = soundsState;
+    this.musicState = musicState;
+    this.pauseState = pauseState;
     this.name = name;
     this.sound = sound;
     this.field = field;
@@ -25,17 +27,19 @@ class Button {
     this.sound.play();
   }
 
-  pushBtn = () => {
+  pushBtn() {
     this.item.addEventListener('click', (event) => {
       if (this.soundsState.state === true) {
         this.playBtnSound();
       }
       this.restartGame(event);
       this.pauseGame(event);
+      this.onOffSounds();
+      this.onOffMusic();
     });
-  };
+  }
 
-  restartGame = (event) => {
+  restartGame(event) {
     if (event.target.textContent === 'Restart') {
       this.field.restartGame();
     } else if (event.target.textContent === 'Small') {
@@ -57,7 +61,7 @@ class Button {
       this.field.fieldSize = 25;
       this.field.restartGame();
     }
-  };
+  }
 
   pauseGame(event) {
     if (event.target.textContent === 'Pause') {
@@ -66,10 +70,34 @@ class Button {
       this.field.controlFieldBlocker();
       document.querySelector('.blocker').classList.add('pauseBlocker');
       document.querySelector('.blocker').insertAdjacentHTML('afterbegin', `<img src="${slimerPic}" class="slimerImg">`);
+      this.pauseState.state = true;
     } else if (event.target.textContent === 'Continue') {
       this.item.textContent = 'Pause';
       this.field.startTimer();
       document.querySelector('.blocker').remove();
+      this.pauseState.state = false;
+    }
+  }
+
+  onOffSounds() {
+    if (this.item.textContent === 'Sound off') {
+      this.item.textContent = 'Sound on';
+      this.soundsState.state = false;
+    } else if (this.item.textContent === 'Sound on') {
+      this.item.textContent = 'Sound off';
+      this.soundsState.state = true;
+    }
+  }
+
+  onOffMusic() {
+    if (this.item.textContent === 'Music off') {
+      this.item.textContent = 'Music on';
+      this.musicState.state = false;
+      this.field.controlMusicOnPage();
+    } else if (this.item.textContent === 'Music on') {
+      this.item.textContent = 'Music off';
+      this.musicState.state = true;
+      this.field.controlMusicOnPage();
     }
   }
 }
