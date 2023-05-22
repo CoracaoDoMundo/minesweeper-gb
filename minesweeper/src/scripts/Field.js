@@ -174,6 +174,8 @@ class Field {
   openCells(i, j, covers, values) {
     if (!values[i][j].textContent) {
       covers[i][j].style.background = 'transparent';
+      // covers[i][j].style.border = '0.1px solid black';
+      covers[i][j].style.border = 'none';
       covers[i][j].setAttribute('isopen', true);
       for (let k = i - 1; k <= i + 1; k++) {
         for (let l = j - 1; l <= j + 1; l++) {
@@ -185,6 +187,8 @@ class Field {
             continue;
           } else {
             covers[k][l].style.background = 'transparent';
+            // covers[k][l].style.border = '0.1px solid black';
+            covers[k][l].style.border = 'none';
             covers[k][l].setAttribute('isopen', true);
             this.openCells(k, l, covers, values);
           }
@@ -192,6 +196,8 @@ class Field {
       }
     } else if (values[i][j].textContent === '') {
       covers[i][j].style.background = 'transparent';
+      // covers[i][j].style.border = '0.1px solid black';
+      covers[i][j].style.border = 'none';
       covers[i][j].setAttribute('isopen', true);
     }
     this.checkForWinning();
@@ -229,6 +235,8 @@ class Field {
       for (let j = 0; j < this.covers.length; j++) {
         this.covers[i][j].setAttribute('isopen', 'true');
         this.covers[i][j].style.background = 'transparent';
+        // this.covers[i][j].style.border = '0.1px solid black';
+        this.covers[i][j].style.border = 'none';
       }
     }
     this.popup = new Popup(document.body);
@@ -289,6 +297,7 @@ class Field {
       this.fillFieldWithValues();
       this.startTimer();
       event.target.style.background = 'transparent';
+      event.target.style.border = 'none';
       event.target.setAttribute('isopen', true);
       this.openCells(x, y, this.covers, this.values);
       if (this.soundsState.state === true) {
@@ -307,11 +316,13 @@ class Field {
         }
       }
       event.target.style.background = 'transparent';
+      event.target.style.border = 'none';
       event.target.setAttribute('isopen', true);
       this.openCells(x, y, this.covers, this.values);
     } else if (this.fieldArr[x][y] === 'g') {
       this.countMoves();
       event.target.style.background = 'transparent';
+      event.target.style.border = 'none';
       event.target.setAttribute('isopen', true);
       this.controlFieldBlocker();
       if (this.soundsState.state === true) {
