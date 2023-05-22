@@ -64,16 +64,35 @@ class Button {
   }
 
   pauseGame(event) {
+    const isStarted = () => {
+      for (let i = 0; i < this.field.covers[0].length; i++) {
+        for (let j = 0; j < this.field.covers.length; j++) {
+          if (this.field.covers[i][j].getAttribute('isopen') === 'true') {
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+
     if (event.target.textContent === 'Pause') {
       this.item.textContent = 'Continue';
       this.field.stopTimer();
       this.field.controlFieldBlocker();
       document.querySelector('.blocker').classList.add('pauseBlocker');
-      document.querySelector('.blocker').insertAdjacentHTML('afterbegin', `<img src="${slimerPic}" class="slimerImg">`);
+      document
+        .querySelector('.blocker')
+        .insertAdjacentHTML(
+          'afterbegin',
+          `<img src="${slimerPic}" class="slimerImg">`
+        );
       this.pauseState.state = true;
     } else if (event.target.textContent === 'Continue') {
       this.item.textContent = 'Pause';
-      this.field.startTimer();
+      console.log(isStarted());
+      if (isStarted() === true) {
+        this.field.startTimer();
+      }
       document.querySelector('.blocker').remove();
       this.pauseState.state = false;
     }

@@ -263,8 +263,10 @@ class Field {
       }
     }
     if (this.counterNum === 0) {
-      if (event.target.className === 'signImg'
-        || event.target.getAttribute('isflaged') === 'true') { 
+      if (
+        event.target.className === 'signImg' ||
+        event.target.getAttribute('isflaged') === 'true'
+      ) {
         return;
       }
       this.controlMusicOnPage();
@@ -280,8 +282,10 @@ class Field {
       }
     } else if (event.target.className === 'blocker') {
       return;
-    } else if (event.target.className === 'signImg'
-      || event.target.getAttribute('isflaged') === 'true') { 
+    } else if (
+      event.target.className === 'signImg' ||
+      event.target.getAttribute('isflaged') === 'true'
+    ) {
       return;
     } else if (this.fieldArr[x][y] !== 'g') {
       if (event.target.getAttribute('isopen') !== 'true') {
@@ -310,8 +314,8 @@ class Field {
     event.preventDefault();
     console.log(event.target.parentNode);
     if (
-      event.target.className === 'cover'
-      && event.target.getAttribute('isflaged') === 'false'
+      event.target.className === 'cover' &&
+      event.target.getAttribute('isflaged') === 'false'
     ) {
       event.target.setAttribute('isflaged', 'true');
       event.target.insertAdjacentHTML(
@@ -319,14 +323,14 @@ class Field {
         `<img src="${signPic}" class="signImg">`
       );
     } else if (
-      event.target.className === 'cover'
-      && event.target.getAttribute('isflaged') === 'true'
+      event.target.className === 'cover' &&
+      event.target.getAttribute('isflaged') === 'true'
     ) {
       event.target.setAttribute('isflaged', 'false');
       event.target.childNode.remove();
     } else if (
-      event.target.className === 'signImg'
-      && event.target.parentNode.getAttribute('isflaged') === 'true'
+      event.target.className === 'signImg' &&
+      event.target.parentNode.getAttribute('isflaged') === 'true'
     ) {
       event.target.parentNode.setAttribute('isflaged', 'false');
       event.target.remove();
