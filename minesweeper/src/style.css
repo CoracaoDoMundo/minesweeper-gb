@@ -162,7 +162,7 @@ body {
   transform: translate(-50%, -50%);
   width: 50%;
   height: fit-content;
-  padding: 20px 0;
+  padding: 30px;
   background-color: rgb(0, 0, 0);
   border: 2px solid rgb(255, 255, 255);
   border-radius: 20px;
@@ -179,6 +179,10 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   cursor: pointer;
+}
+
+.popupHeader {
+  margin: 10px 0;
 }
 
 .ghostTrapPic {

@@ -1,6 +1,7 @@
 // Class for input field
 
 import { createElement } from './service-functions.js';
+import Popup from './Popup.js';
 
 class Input {
   render(container, labelText, id, field) {
@@ -19,9 +20,16 @@ class Input {
   }
 
   setMinesQuantity() {
-    // this.item.addEventListener('focusin', () => {
-    //   alert('Attention! This will start the game over! Are you sure you want to do this?');
-    // });
+    this.item.addEventListener('focusin', () => {
+      this.popup = new Popup(document.body);
+      this.popup.render();
+      this.popup.header.textContent = 'Attention!';
+      this.popup.text.textContent = 'This will restart the game!';
+      this.popup.item.insertAdjacentHTML(
+        'beforeend',
+        '<p class="popupText"> Are you sure you want to do this? </p>'
+      );
+    });
 
     this.item.addEventListener(
       'input',
@@ -29,7 +37,7 @@ class Input {
         this.minesQuantity = this.item.value;
         this.field.restartGame();
       },
-      false,
+      false
     );
   }
 }
