@@ -1,3 +1,8 @@
+// Create element function
+// Create array for game field function
+// Form two dimensional array function
+// Set and get results for local storage functions
+
 const createElement = (tagName, [...classNames], parentNode) => {
   const element = document.createElement(tagName);
   element.classList.add([...classNames]);
@@ -54,6 +59,27 @@ const splitArray = (array, fieldSide) => {
   return arr;
 };
 
+const setResultToLS = (result) => {
+  let res = localStorage.getItem('result');
+  if (res !== null) {
+    const resArr = Array.from(res);
+    const numOfResults = resArr.filter((el) => el === '|').length;
+    if (numOfResults === 10) {
+      const index = resArr.findIndex((el) => el === '|');
+      res = res.slice(index + 1);
+    }
+    localStorage.setItem('result', res += result);
+  } else {
+    localStorage.setItem('result', result);
+  }
+};
+
+const getResultFromLS = () => {
+  if (localStorage.getItem('result')) {
+    return localStorage.getItem('result');
+  }
+};
+
 // console.log(createFieldArr(10, 40, 5));
 
-export { createElement, createFieldArr, splitArray };
+export { createElement, createFieldArr, splitArray, setResultToLS, getResultFromLS };

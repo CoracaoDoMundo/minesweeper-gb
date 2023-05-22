@@ -1,6 +1,8 @@
-// Class for control buttons
+// Class for control buttons and their functionality (levels, sounds, music, pause, results)
+// Method for form results board
 
-import { createElement } from './service-functions.js';
+import { createElement, getResultFromLS } from './service-functions.js';
+import Popup from './Popup.js';
 import buttonSound from '../assets/sounds/button-sound.mp3';
 import slimerPic from '../assets/img/slimer.png';
 
@@ -36,6 +38,7 @@ class Button {
       this.pauseGame(event);
       this.onOffSounds();
       this.onOffMusic();
+      this.showResults(event);
     });
   }
 
@@ -108,11 +111,11 @@ class Button {
   }
 
   onOffSounds() {
-    if (this.item.textContent === 'Sound off') {
-      this.item.textContent = 'Sound on';
+    if (this.item.textContent === 'Sounds off') {
+      this.item.textContent = 'Sounds on';
       this.soundsState.state = false;
-    } else if (this.item.textContent === 'Sound on') {
-      this.item.textContent = 'Sound off';
+    } else if (this.item.textContent === 'Sounds on') {
+      this.item.textContent = 'Sounds off';
       this.soundsState.state = true;
     }
   }
@@ -126,6 +129,38 @@ class Button {
       this.item.textContent = 'Music off';
       this.musicState.state = true;
       this.field.controlMusicOnPage();
+    }
+  }
+
+  showResults(event) {
+    if (event.target.textContent === 'Results') {
+      this.popup = new Popup(document.body);
+      this.popup.render();
+      this.popup.header.textContent = 'Results';
+      const result = getResultFromLS();
+      if (result === null || result === undefined) {
+        this.popup.item.insertAdjacentHTML(
+          'beforeend',
+          `<p class="popupText">There are no results yet.</p>`
+        );
+        this.popup.item.insertAdjacentHTML(
+          'beforeend',
+          `<p class="popupText">Play and change it!</p>`
+        );
+      } else {
+        let resultArr = result.split('');
+        const numOfResults = resultArr.filter((el) => el === '|').length;
+        for (let i = 0; i < numOfResults; i++) {
+          const table = `${i + 1}.`;
+          const index = resultArr.findIndex((el) => el === '|');
+          console.log('index:', index);
+          const chunk = resultArr.splice(0, index + 1).slice(0, -1).join('');
+          this.popup.item.insertAdjacentHTML(
+            'beforeend',
+            `<p class="popupTextSmall">${table} ${chunk}</p>`
+          );
+        }
+      }
     }
   }
 }

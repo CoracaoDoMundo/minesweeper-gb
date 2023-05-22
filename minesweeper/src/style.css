@@ -185,6 +185,10 @@ body {
   margin: 10px 0;
 }
 
+.popupTextSmall {
+  font-size: .7em;
+}
+
 .ghostTrapPic {
   width: 30%;
   transform: rotate(-20deg);

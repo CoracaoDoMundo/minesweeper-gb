@@ -3,6 +3,8 @@
 // Set up size of the board
 // Control game process (start, restart, count moves, control timer)
 // Announce victory or loss
+// Function for left button click (move)
+// Function for right button click (flag)
 
 import Cell from './Cell.js';
 import Popup from './Popup.js';
@@ -10,6 +12,7 @@ import {
   createElement,
   createFieldArr,
   splitArray,
+  setResultToLS,
 } from './service-functions.js';
 import ghostPic from '../assets/img/ghost_thick_wb.png';
 import signPic from '../assets/icons/stop-sign.svg';
@@ -214,6 +217,9 @@ class Field {
     if (this.closedCells === Number(this.input.minesQuantity)) {
       this.stopTimer();
       this.announceVictory();
+      setResultToLS(
+        `${this.fieldSize}x${this.fieldSize} game with ${this.input.minesQuantity} ghosts - ${this.counterNum} moves and ${this.timer.textContent}|`
+      );
     }
   }
 
@@ -289,12 +295,10 @@ class Field {
         openCellAudio.play();
       }
     } else if (event.target.className === 'blocker') {
-      return;
     } else if (
       event.target.className === 'signImg' ||
       event.target.getAttribute('isflaged') === 'true'
     ) {
-      return;
     } else if (this.fieldArr[x][y] !== 'g') {
       if (event.target.getAttribute('isopen') !== 'true') {
         this.countMoves();

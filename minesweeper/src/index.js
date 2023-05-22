@@ -30,7 +30,7 @@ gameField.render(document.body);
 
 const musicBtn = new Button(gameField, isSoundsOn, isMusicOn, isPause, 'Music off');
 musicBtn.render(buttonsWrapper.item, 'music');
-const soundBtn = new Button(gameField, isSoundsOn, isMusicOn, isPause, 'Sound off');
+const soundBtn = new Button(gameField, isSoundsOn, isMusicOn, isPause, 'Sounds off');
 soundBtn.render(buttonsWrapper.item, 'sound');
 const pauseBtn = new Button(gameField, isSoundsOn, isMusicOn, isPause, 'Pause');
 pauseBtn.render(buttonsWrapper.item, 'pause');

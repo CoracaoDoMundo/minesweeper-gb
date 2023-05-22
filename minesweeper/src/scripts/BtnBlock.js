@@ -1,5 +1,4 @@
 // Class for buttons container
-// import Button from './Button.js';
 
 import { createElement } from './service-functions.js';
 

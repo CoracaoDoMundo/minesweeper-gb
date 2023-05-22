@@ -1,6 +1,5 @@
 // Class for settings container
 
-// import Input from './Input.js';
 import { createElement } from './service-functions.js';
 
 class Settings {
