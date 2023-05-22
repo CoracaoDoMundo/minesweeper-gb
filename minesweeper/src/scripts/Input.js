@@ -3,10 +3,10 @@
 import { createElement } from './service-functions.js';
 
 class Input {
-  constructor(container, labelText, id) {
-    const label = createElement('label', ['label'], container);
-    label.textContent = labelText;
-    label.setAttribute('for', id);
+  render(container, labelText, id, field) {
+    this.label = createElement('label', ['label'], container);
+    this.label.textContent = labelText;
+    this.label.setAttribute('for', id);
     this.item = createElement('input', ['input'], container);
     this.item.setAttribute('id', id);
     this.item.setAttribute('type', 'number');
@@ -14,6 +14,8 @@ class Input {
     this.item.setAttribute('max', '99');
     this.item.setAttribute('value', '10');
     this.minesQuantity = this.item.value;
+    this.field = field;
+    this.setMinesQuantity();
   }
 
   setMinesQuantity() {
@@ -25,9 +27,9 @@ class Input {
       'input',
       () => {
         this.minesQuantity = this.item.value;
-        console.log('something');
+        this.field.restartGame();
       },
-      false
+      false,
     );
   }
 }

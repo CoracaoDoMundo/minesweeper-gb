@@ -65,36 +65,45 @@ class Button {
 
   pauseGame(event) {
     const isStarted = () => {
+      let opened = 0;
+      let closed = 0;
       for (let i = 0; i < this.field.covers[0].length; i++) {
         for (let j = 0; j < this.field.covers.length; j++) {
           if (this.field.covers[i][j].getAttribute('isopen') === 'true') {
-            return true;
+            opened += 1;
+          } else if (this.field.covers[i][j].getAttribute('isopen') === 'false') {
+            closed += 1;
           }
         }
+      }
+      if (opened !== 0 && closed !== 0) {
+        return true;
       }
       return false;
     };
 
-    if (event.target.textContent === 'Pause') {
-      this.item.textContent = 'Continue';
-      this.field.stopTimer();
-      this.field.controlFieldBlocker();
-      document.querySelector('.blocker').classList.add('pauseBlocker');
-      document
-        .querySelector('.blocker')
-        .insertAdjacentHTML(
-          'afterbegin',
-          `<img src="${slimerPic}" class="slimerImg">`
-        );
-      this.pauseState.state = true;
-    } else if (event.target.textContent === 'Continue') {
-      this.item.textContent = 'Pause';
-      console.log(isStarted());
-      if (isStarted() === true) {
+    if (isStarted() === true) {
+      if (event.target.textContent === 'Pause') {
+        this.item.textContent = 'Continue';
+        this.field.stopTimer();
+        this.field.controlFieldBlocker();
+        document.querySelector('.blocker').classList.add('pauseBlocker');
+        document
+          .querySelector('.blocker')
+          .insertAdjacentHTML(
+            'afterbegin',
+            `<img src="${slimerPic}" class="slimerImg">`
+          );
+        this.pauseState.state = true;
+      } else if (event.target.textContent === 'Continue') {
+        this.item.textContent = 'Pause';
+        console.log(isStarted());
+
         this.field.startTimer();
+
+        document.querySelector('.blocker').remove();
+        this.pauseState.state = false;
       }
-      document.querySelector('.blocker').remove();
-      this.pauseState.state = false;
     }
   }
 

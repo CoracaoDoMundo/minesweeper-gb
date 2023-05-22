@@ -5,6 +5,7 @@
 // Announce victory or loss
 
 import Cell from './Cell.js';
+import Popup from './Popup.js';
 import {
   createElement,
   createFieldArr,
@@ -12,6 +13,8 @@ import {
 } from './service-functions.js';
 import ghostPic from '../assets/img/ghost_thick_wb.png';
 import signPic from '../assets/icons/stop-sign.svg';
+import ghostTrap from '../assets/img/ghost-trap.png';
+import marshmallowMan from '../assets/img/marshmallow-man.png';
 import openCellSound from '../assets/sounds/cell-open.mp3';
 import gameOverSound from '../assets/sounds/game-over.mp3';
 import mainTheme from '../assets/sounds/Ray_Parker_Jr._-_Ghostbusters.mp3';
@@ -222,8 +225,13 @@ class Field {
         this.covers[i][j].style.background = 'transparent';
       }
     }
-    alert(
-      `You won the game for ${this.counterNum} moves and ${this.timer.textContent}!`
+    this.popup = new Popup(document.body);
+    this.popup.render();
+    this.popup.header.textContent = 'Congratulations!';
+    this.popup.text.textContent = `You won the game for ${this.counterNum} moves and ${this.timer.textContent}!`;
+    this.popup.item.insertAdjacentHTML(
+      'beforeend',
+      `<img src="${ghostTrap}" class="ghostTrapPic">`
     );
   }
 
@@ -305,7 +313,14 @@ class Field {
       if (this.soundsState.state === true) {
         this.gameOverSound.play();
       }
-      alert('game over!');
+      this.popup = new Popup(document.body);
+      this.popup.render();
+      this.popup.header.textContent = 'Sorry, you lose!';
+      this.popup.text.textContent = 'No luck this time, try again!';
+      this.popup.item.insertAdjacentHTML(
+        'beforeend',
+        `<img src="${marshmallowMan}" class="marshmallowManPic">`
+      );
       this.restartGame();
     }
   }
