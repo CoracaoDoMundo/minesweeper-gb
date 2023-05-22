@@ -345,7 +345,8 @@ class Field {
     console.log(event.target.parentNode);
     if (
       event.target.className === 'cover' &&
-      event.target.getAttribute('isflaged') === 'false'
+      event.target.getAttribute('isflaged') === 'false' &&
+      event.target.getAttribute('isopen') === 'false'
     ) {
       event.target.setAttribute('isflaged', 'true');
       event.target.insertAdjacentHTML(
