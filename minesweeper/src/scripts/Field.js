@@ -26,7 +26,7 @@ const gameOverAudio = new Audio(gameOverSound);
 const openCellAudio = new Audio(openCellSound);
 
 class Field {
-  constructor(input, soundsState, musicState, pauseState, fieldSize = 10) {
+  constructor(input, soundsState, musicState, pauseState, toggle, fieldSize = 10) {
     this.fieldSize = fieldSize;
     this.counter = 0;
     this.input = input;
@@ -35,6 +35,7 @@ class Field {
     this.soundsState = soundsState;
     this.musicState = musicState;
     this.pauseState = pauseState;
+    this.toggle = toggle;
     this.audio = new Audio(mainTheme);
     this.audio.volume = 0.2;
   }
@@ -174,7 +175,6 @@ class Field {
   openCells(i, j, covers, values) {
     if (!values[i][j].textContent) {
       covers[i][j].style.background = 'transparent';
-      // covers[i][j].style.border = '0.1px solid black';
       covers[i][j].style.border = 'none';
       covers[i][j].setAttribute('isopen', true);
       for (let k = i - 1; k <= i + 1; k++) {
@@ -187,7 +187,6 @@ class Field {
             continue;
           } else {
             covers[k][l].style.background = 'transparent';
-            // covers[k][l].style.border = '0.1px solid black';
             covers[k][l].style.border = 'none';
             covers[k][l].setAttribute('isopen', true);
             this.openCells(k, l, covers, values);
@@ -196,7 +195,6 @@ class Field {
       }
     } else if (values[i][j].textContent === '') {
       covers[i][j].style.background = 'transparent';
-      // covers[i][j].style.border = '0.1px solid black';
       covers[i][j].style.border = 'none';
       covers[i][j].setAttribute('isopen', true);
     }
@@ -235,11 +233,10 @@ class Field {
       for (let j = 0; j < this.covers.length; j++) {
         this.covers[i][j].setAttribute('isopen', 'true');
         this.covers[i][j].style.background = 'transparent';
-        // this.covers[i][j].style.border = '0.1px solid black';
         this.covers[i][j].style.border = 'none';
       }
     }
-    this.popup = new Popup(document.body);
+    this.popup = new Popup(document.body, this.toggle.theme);
     this.popup.render();
     this.popup.header.textContent = 'Congratulations!';
     this.popup.text.textContent = `You won the game for ${this.counterNum} moves and ${this.timer.textContent}!`;
@@ -328,7 +325,7 @@ class Field {
       if (this.soundsState.state === true) {
         this.gameOverSound.play();
       }
-      this.popup = new Popup(document.body);
+      this.popup = new Popup(document.body, this.toggle.theme);
       this.popup.render();
       this.popup.header.textContent = 'Sorry, you lose!';
       this.popup.text.textContent = 'No luck this time, try again!';

@@ -8,6 +8,17 @@ body {
   margin: 0 auto;
   gap: 10px;
   max-width: 1280px;
+  background-color: var(--second-color);
+  color: var(--main-color);
+  --main-color: #000000;
+  --second-color: #ffffff;
+  --shadow-main-color: #0000008a;
+}
+
+.dark-theme {
+  --main-color: #ffffff;
+  --shadow-main-color: #ffffff8a;
+  --second-color: #000000;
 }
 
 .headerWrapper {
@@ -39,16 +50,16 @@ body {
   width: 23%;
   font-size: 0.6em;
   padding: 0.3em 0;
-  border-bottom: 2px solid black;
-  border-right: 2px solid black;
-  box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.54);
+  border-bottom: 2px solid var(--main-color);
+  border-right: 2px solid var(--main-color);
+  box-shadow: 3px 3px 3px 0px var(--shadow-main-color);
   text-align: center;
   background: transparent;
   cursor: pointer;
 }
 
 .button:active {
-  box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.54);
+  box-shadow: 1px 1px 1px 0px var(--shadow-main-color);
 }
 
 .fieldWrapper {
@@ -73,10 +84,10 @@ body {
   display: flex;
   flex-wrap: wrap;
   position: relative;
-  width: 450px;
+  width: 430px;
   height: fit-content;
-  border: 2px solid black;
-  box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.54);
+  border: 2px solid var(--main-color);
+  box-shadow: 3px 3px 3px 0px var(--shadow-main-color);
 }
 
 .cell {
@@ -86,7 +97,7 @@ body {
   position: relative;
   font-weight: 100;
   font-size: 0.8em;
-  border: 1px solid black;
+  border: 1px solid var(--main-color);
   box-sizing: border-box;
   cursor: pointer;
 }
@@ -99,8 +110,8 @@ body {
   font-size: 0.1px;
   width: 100%;
   height: 100%;
-  background-color: rgb(0, 0, 0);
-  border: 1px solid white;
+  background-color: var(--main-color);
+  border: 1px solid var(--second-color);
 }
 
 .ghostImg {
@@ -129,7 +140,7 @@ body {
   text-align: end;
   width: 4em;
   border: none;
-  border-bottom: 1px solid #000000;
+  border-bottom: 1px solid var(--main-color);
 }
 
 .blocker {
@@ -143,7 +154,7 @@ body {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  background-color: rgb(0, 0, 0);
+  background-color: var(--main-color);
 }
 
 .slimerImg {
@@ -163,10 +174,10 @@ body {
   width: 50%;
   height: fit-content;
   padding: 30px;
-  background-color: rgb(0, 0, 0);
-  border: 2px solid rgb(255, 255, 255);
+  background-color: var(--main-color);
+  border: 2px solid var(--second-color);
   border-radius: 20px;
-  color: rgb(255, 255, 255);
+  color: var(--second-color);
 }
 
 .close {
@@ -181,6 +192,18 @@ body {
   cursor: pointer;
 }
 
+.closeDarkTheme {
+  position: absolute;
+  top: -30px;
+  right: -30px;
+  width: 40px;
+  height: 40px;
+  background-image: url(./assets/icons/white-cross.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+}
+
 .popupHeader {
   margin: 10px 0;
 }
@@ -190,7 +213,7 @@ body {
 }
 
 .popupTextSmall {
-  font-size: .7em;
+  font-size: 0.7em;
 }
 
 .ghostTrapPic {
@@ -202,6 +225,50 @@ body {
 .marshmallowManPic {
   width: 30%;
   margin: 10px 10px 0;
+}
+
+.toggleField {
+  display: flex;
+  overflow: hidden;
+  height: 20px;
+}
+
+.inputToggleLight,
+.inputToggleDark {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  width: 1px;
+  border: 0;
+  overflow: hidden;
+}
+
+.labelToggleLight,
+.labelToggleDark {
+  background-color: #ffffff;
+  font-size: 12px;
+  text-align: center;
+  width: 25px;
+  border: 0.5px solid #000000;
+  transition: all 0.1s ease-in-out;
+  cursor: pointer;
+}
+
+.inputToggleLight:checked + label,
+.inputToggleDark:checked + label {
+  background-color: #000000;
+  border: 0.2px solid #ffffff;
+  box-shadow: none;
+}
+
+.labelToggleLight:first-of-type,
+.labelToggleDark:first-of-type {
+  border-radius: 4px 0 0 4px;
+}
+
+.labelToggleLight:last-of-type,
+.labelToggleDark:last-of-type {
+  border-radius: 0 4px 4px 0;
 }
 
 @media (max-width: 1000px) {
@@ -267,5 +334,42 @@ body {
 
   .popupText {
     font-size: 0.6em;
+  }
+
+  @media (max-width: 550px) {
+    .label {
+      font-size: 0.65em;
+    }
+  }
+
+  @media (max-width: 499px) {
+    .header {
+      font-size: 1.3em;
+    }
+
+    .button {
+      font-size: 0.4em;
+    }
+
+    .field {
+      width: 370px;
+    }
+
+    .label {
+      font-size: 0.5em;
+    }
+
+    .input {
+      font-size: 0.8em;
+    }
+
+    .toggleField {
+      height: 15px;
+    }
+
+    .labelToggleLight, 
+    .labelToggleDark {
+      width: 20px;
+  }
   }
 }

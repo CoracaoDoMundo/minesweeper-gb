@@ -7,6 +7,7 @@ import Field from './scripts/Field.js';
 import Header from './scripts/Header.js';
 import Settings from './scripts/SettingsBlock.js';
 import Input from './scripts/Input.js';
+import Toggle from './scripts/Toggle.js';
 
 const isSoundsOn = {
   state: true,
@@ -24,8 +25,9 @@ const buttonsWrapper = new BtnBlock(document.body, isSoundsOn);
 
 const settingsBlock = new Settings(document.body);
 const ghostInput = new Input();
+const themeToggle = new Toggle();
 
-const gameField = new Field(ghostInput, isSoundsOn, isMusicOn, isPause);
+const gameField = new Field(ghostInput, isSoundsOn, isMusicOn, isPause, themeToggle);
 gameField.render(document.body);
 
 const musicBtn = new Button(gameField, isSoundsOn, isMusicOn, isPause, 'Music off');
@@ -46,3 +48,4 @@ const largeFieldBtn = new Button(gameField, isSoundsOn, isMusicOn, isPause, 'Lar
 largeFieldBtn.render(buttonsWrapper.item, 'large');
 
 ghostInput.render(settingsBlock.item, 'How many ghosts you want to bust? ', 'ghostNum', gameField);
+themeToggle.render(settingsBlock.item, 'theme', 'light', 'toggleLight', 'toggleDark', gameField);

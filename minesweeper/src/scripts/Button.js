@@ -134,7 +134,7 @@ class Button {
 
   showResults(event) {
     if (event.target.textContent === 'Results') {
-      this.popup = new Popup(document.body);
+      this.popup = new Popup(document.body, this.field.toggle.theme);
       this.popup.render();
       this.popup.header.textContent = 'Results';
       const result = getResultFromLS();
@@ -153,7 +153,6 @@ class Button {
         for (let i = 0; i < numOfResults; i++) {
           const table = `${i + 1}.`;
           const index = resultArr.findIndex((el) => el === '|');
-          console.log('index:', index);
           const chunk = resultArr.splice(0, index + 1).slice(0, -1).join('');
           this.popup.item.insertAdjacentHTML(
             'beforeend',
