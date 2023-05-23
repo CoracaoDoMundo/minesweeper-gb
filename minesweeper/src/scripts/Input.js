@@ -1,7 +1,7 @@
 // Class for crate an input field
 
 import { createElement } from './service-functions.js';
-// import Popup from './Popup.js';
+import Popup from './Popup.js';
 
 class Input {
   render(container, labelText, id, field) {
@@ -34,7 +34,15 @@ class Input {
     this.item.addEventListener(
       'input',
       () => {
-        this.minesQuantity = this.item.value;
+        if (this.item.value > 9 && this.item.value < 100) {
+          this.minesQuantity = this.item.value;
+        } else if (parseInt(this.item.value) < parseInt(this.item.min)) {
+          this.item.value = this.item.min;
+          this.minesQuantity = 10;
+        } else if (parseInt(this.item.value) > parseInt(this.item.max)) {
+          this.item.value = this.item.max;
+          this.minesQuantity = 99;
+        }
         this.field.restartGame();
       },
       false
