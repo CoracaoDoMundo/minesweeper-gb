@@ -1,7 +1,11 @@
 // Class for control buttons and their functionality (levels, sounds, music, pause, results)
 // Method for form results board
 
-import { createElement, getResultFromLS } from './service-functions.js';
+import {
+  createElement,
+  getResultFromLS,
+  saveGame,
+} from './service-functions.js';
 import Popup from './Popup.js';
 import buttonSound from '../assets/sounds/button-sound.mp3';
 import slimerPic from '../assets/img/slimer.png';
@@ -39,6 +43,7 @@ class Button {
       this.onOffSounds();
       this.onOffMusic();
       this.showResults(event);
+      this.saveGame(event);
     });
   }
 
@@ -74,7 +79,9 @@ class Button {
         for (let j = 0; j < this.field.covers.length; j++) {
           if (this.field.covers[i][j].getAttribute('isopen') === 'true') {
             opened += 1;
-          } else if (this.field.covers[i][j].getAttribute('isopen') === 'false') {
+          } else if (
+            this.field.covers[i][j].getAttribute('isopen') === 'false'
+          ) {
             closed += 1;
           }
         }
@@ -100,7 +107,6 @@ class Button {
         this.pauseState.state = true;
       } else if (event.target.textContent === 'Continue') {
         this.item.textContent = 'Pause';
-        console.log(isStarted());
 
         this.field.startTimer();
 
@@ -153,13 +159,30 @@ class Button {
         for (let i = 0; i < numOfResults; i++) {
           const table = `${i + 1}.`;
           const index = resultArr.findIndex((el) => el === '|');
-          const chunk = resultArr.splice(0, index + 1).slice(0, -1).join('');
+          const chunk = resultArr
+            .splice(0, index + 1)
+            .slice(0, -1)
+            .join('');
           this.popup.item.insertAdjacentHTML(
             'beforeend',
             `<p class="popupTextSmall">${table} ${chunk}</p>`
           );
         }
       }
+    }
+  }
+
+  saveGame(event) {
+    if (event.target.textContent === 'Save') {
+      saveGame(
+        this.field.item.innerHTML,
+        this.field.fieldArr,
+        this.field.fieldSize,
+        this.field.s,
+        this.field.m,
+        this.field.counterNum,
+        this.field.marksCounterNum,
+      );
     }
   }
 }

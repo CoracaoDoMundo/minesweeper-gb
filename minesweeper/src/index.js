@@ -9,10 +9,11 @@ import Settings from './scripts/SettingsBlock.js';
 import Input from './scripts/Input.js';
 import Toggle from './scripts/Toggle.js';
 
-// import {
-//   setLocalStorage,
-//   getLocalStorage,
-// } from './scripts/service-functions.js';
+import {
+  relaunchGameFromLS,
+  //   setLocalStorage,
+  //   getLocalStorage,
+} from './scripts/service-functions.js';
 
 const isSoundsOn = {
   state: true,
@@ -142,6 +143,10 @@ themeToggle.render(
   'toggleDark',
   gameField
 );
+
+window.addEventListener('load', () => {
+  relaunchGameFromLS(gameField);
+});
 
 // window.addEventListener('beforeunload', () => {
 //   setLocalStorage(isSoundsOn, isMusicOn);

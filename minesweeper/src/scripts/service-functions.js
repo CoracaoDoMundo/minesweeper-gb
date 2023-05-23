@@ -80,6 +80,32 @@ const getResultFromLS = () => {
   }
 };
 
+const saveGame = (text, arr, size, seconds, minutes, moves, marks) => {
+  localStorage.setItem('gameField', text);
+  localStorage.setItem('gameArr', arr);
+  localStorage.setItem('fieldSize', size);
+  localStorage.setItem('seconds', seconds);
+  localStorage.setItem('minutes', minutes);
+  localStorage.setItem('moves', moves);
+  localStorage.setItem('marks', marks);
+};
+
+const relaunchGameFromLS = (field) => {
+  field.item.innerHTML = localStorage.getItem('gameField');
+  field.fieldArr = splitArray(localStorage.getItem('gameArr').split(','), localStorage.getItem('fieldSize'));
+  field.s = Number(localStorage.getItem('seconds'));
+  field.m = Number(localStorage.getItem('minutes'));
+  field.startTimer();
+  field.counterNum = Number(localStorage.getItem('moves')) - 1;
+  field.countMoves();
+  field.marksCounterNum = Number(localStorage.getItem('marks'));
+  field.rewriteMarksNum();
+  field.covers = splitArray(
+    Array.from(document.querySelectorAll('.cover')),
+    field.fieldSize
+  );
+};
+
 // const setLocalStorage = () => {
 //   localStorage.setItem('music', isMusicOn.state);
 //   localStorage.setItem('sounds', isSoundsOn.state);
@@ -115,6 +141,8 @@ export {
   splitArray,
   setResultToLS,
   getResultFromLS,
+  saveGame,
+  relaunchGameFromLS,
   // setLocalStorage,
   // getLocalStorage,
 };
