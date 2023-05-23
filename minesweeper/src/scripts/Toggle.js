@@ -27,17 +27,27 @@ class Toggle {
 
   switchTheme() {
     this.item.addEventListener('click', (event) => {
-      if (event.target.className === 'inputToggleLight' || event.target.className === 'labelToggleLight') {
+      if (
+        event.target.className === 'inputToggleLight' ||
+        event.target.className === 'labelToggleLight'
+      ) {
         document.body.style.setProperty('--main-color', '#000000');
         document.body.style.setProperty('--second-color', '#ffffff');
         document.body.style.setProperty('--shadow-main-color', '#0000008a');
-        document.querySelector('.close').classList.remove('closeDarkTheme');
+        if (document.querySelector('.close')) {
+          document.querySelector('.close').classList.remove('closeDarkTheme');
+        }
         this.theme = 'light';
-      } else if (event.target.className === 'inputToggleDark' || event.target.className === 'labelToggleDark') {
+      } else if (
+        event.target.className === 'inputToggleDark' ||
+        event.target.className === 'labelToggleDark'
+      ) {
         document.body.style.setProperty('--main-color', '#ffffff');
         document.body.style.setProperty('--second-color', '#000000');
         document.body.style.setProperty('--shadow-main-color', '#ffffff8a');
-        document.querySelector('.close').classList.add('closeDarkTheme');
+        if (document.querySelector('.close')) {
+          document.querySelector('.close').classList.add('closeDarkTheme');
+        }
         this.theme = 'dark';
       }
     });
