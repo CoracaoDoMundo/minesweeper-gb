@@ -145,7 +145,12 @@ themeToggle.render(
 );
 
 window.addEventListener('load', () => {
-  relaunchGameFromLS(gameField);
+  if (
+    localStorage.getItem('gameField') !== null &&
+    localStorage.getItem('gameField') !== undefined
+  ) {
+    relaunchGameFromLS(gameField);
+  }
 });
 
 // window.addEventListener('beforeunload', () => {
