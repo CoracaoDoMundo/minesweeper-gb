@@ -28,13 +28,16 @@ class Toggle {
   switchTheme() {
     this.item.addEventListener('click', (event) => {
       if (event.target.className === 'inputToggleLight' || event.target.className === 'labelToggleLight') {
-        document.body.classList.remove('dark-theme');
+        document.body.style.setProperty('--main-color', '#000000');
+        document.body.style.setProperty('--second-color', '#ffffff');
+        document.body.style.setProperty('--shadow-main-color', '#0000008a');
         this.theme = 'light';
       } else if (event.target.className === 'inputToggleDark' || event.target.className === 'labelToggleDark') {
-        document.body.classList.add('dark-theme');
+        document.body.style.setProperty('--main-color', '#ffffff');
+        document.body.style.setProperty('--second-color', '#000000');
+        document.body.style.setProperty('--shadow-main-color', '#ffffff8a');
         this.theme = 'dark';
       }
-      this.switchTheme();
     });
   }
 }

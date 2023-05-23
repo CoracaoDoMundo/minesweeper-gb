@@ -20,8 +20,6 @@ const isSoundsOn = {
 const isMusicOn = {
   state: true,
 };
-// const isSoundsOn;
-// const isMusicOn;
 
 // window.addEventListener('load', () => {
 //   if (localStorage.getItem('music')) {

@@ -1,5 +1,11 @@
 @import './styles/fonts.css';
 
+:root {
+  --main-color: #000000;
+  --second-color: #ffffff;
+  --shadow-main-color: #0000008a;
+}
+
 body {
   display: flex;
   align-items: center;
@@ -10,15 +16,6 @@ body {
   max-width: 1280px;
   background-color: var(--second-color);
   color: var(--main-color);
-  --main-color: #000000;
-  --second-color: #ffffff;
-  --shadow-main-color: #0000008a;
-}
-
-.dark-theme {
-  --main-color: #ffffff;
-  --shadow-main-color: #ffffff8a;
-  --second-color: #000000;
 }
 
 .headerWrapper {
