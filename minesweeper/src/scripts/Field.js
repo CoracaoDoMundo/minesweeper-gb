@@ -26,7 +26,14 @@ const gameOverAudio = new Audio(gameOverSound);
 const openCellAudio = new Audio(openCellSound);
 
 class Field {
-  constructor(input, soundsState, musicState, pauseState, toggle, fieldSize = 10) {
+  constructor(
+    input,
+    soundsState,
+    musicState,
+    pauseState,
+    toggle,
+    fieldSize = 10
+  ) {
     this.fieldSize = fieldSize;
     this.counter = 0;
     this.input = input;
@@ -43,8 +50,19 @@ class Field {
   render(container) {
     const fieldWrapper = createElement('div', ['fieldWrapper'], container);
     this.timerWrapper = createElement('div', ['timerWrapper'], fieldWrapper);
+    this.timerText = createElement('span', ['timerText'], this.timerWrapper);
+    this.timerText.textContent = 'TIME:';
     this.createTimer(this.timerWrapper);
+    this.counterText = createElement(
+      'span',
+      ['counterText'],
+      this.timerWrapper
+    );
+    this.counterText.textContent = 'MOVES:';
     this.createCounter(this.timerWrapper);
+    this.marksText = createElement('span', ['marksText'], this.timerWrapper);
+    this.marksText.textContent = 'MARKS:';
+    this.createMarksCounter(this.timerWrapper);
     this.item = createElement('div', ['field'], fieldWrapper);
 
     this.fillStartField(`${this.item.clientWidth / this.fieldSize}px`);
@@ -170,6 +188,21 @@ class Field {
     this.counter.textContent = this.counterNum
       .toString()
       .padStart(this.counterLength, '0');
+  }
+
+  createMarksCounter(parent) {
+    this.marksCounter = createElement('span', ['marksCounter'], parent);
+    this.marksCounterLength = 2;
+    this.marksCounterNum = 0;
+    this.marksCounter.textContent = this.marksCounterNum
+      .toString()
+      .padStart(this.marksCounterLength, '0');
+  }
+
+  rewriteMarksNum() {
+    this.marksCounter.textContent = this.marksCounterNum
+      .toString()
+      .padStart(this.marksCounterLength, '0');
   }
 
   openCells(i, j, covers, values) {
@@ -339,12 +372,14 @@ class Field {
 
   clickRightBtn(event) {
     event.preventDefault();
-    console.log(event.target.parentNode);
+    // console.log(event.target.parentNode);
     if (
       event.target.className === 'cover' &&
       event.target.getAttribute('isflaged') === 'false' &&
       event.target.getAttribute('isopen') === 'false'
     ) {
+      this.marksCounterNum += 1;
+      this.rewriteMarksNum();
       event.target.setAttribute('isflaged', 'true');
       event.target.insertAdjacentHTML(
         'afterbegin',
@@ -354,12 +389,16 @@ class Field {
       event.target.className === 'cover' &&
       event.target.getAttribute('isflaged') === 'true'
     ) {
+      this.marksCounterNum -= 1;
+      this.rewriteMarksNum();
       event.target.setAttribute('isflaged', 'false');
       event.target.childNode.remove();
     } else if (
       event.target.className === 'signImg' &&
       event.target.parentNode.getAttribute('isflaged') === 'true'
     ) {
+      this.marksCounterNum -= 1;
+      this.rewriteMarksNum();
       event.target.parentNode.setAttribute('isflaged', 'false');
       event.target.remove();
     }

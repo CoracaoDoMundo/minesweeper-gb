@@ -71,12 +71,29 @@ body {
   width: 100%;
   display: flex;
   justify-content: space-around;
+  align-self: center;
   margin: 0.5em;
 }
 
-.timer,
+.timerText,
+.counterText,
+.marksText {
+  font-size: 0.6em;
+  align-self: center;
+}
+
+.timer {
+  width: 75px;
+  text-align: center;
+}
+
 .counter {
-  width: 100px;
+  width: 65px;
+  text-align: center;
+}
+
+.marksCounter {
+  width: 50px;
   text-align: center;
 }
 

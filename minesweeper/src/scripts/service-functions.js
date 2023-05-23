@@ -68,7 +68,7 @@ const setResultToLS = (result) => {
       const index = resArr.findIndex((el) => el === '|');
       res = res.slice(index + 1);
     }
-    localStorage.setItem('result', res += result);
+    localStorage.setItem('result', (res += result));
   } else {
     localStorage.setItem('result', result);
   }
@@ -80,6 +80,41 @@ const getResultFromLS = () => {
   }
 };
 
+// const setLocalStorage = () => {
+//   localStorage.setItem('music', isMusicOn.state);
+//   localStorage.setItem('sounds', isSoundsOn.state);
+// };
+
+// const getLocalStorage = () => {
+//   if (localStorage.getItem('music')) {
+//     const isMusicOn = {
+//       state: localStorage.getItem('music'),
+//     };
+//   } else {
+//     const isMusicOn = {
+//       state: true,
+//     };
+//   }
+
+//   if (localStorage.getItem('sounds')) {
+//     const isPause = {
+//       state: localStorage.getItem('sounds'),
+//     };
+//   } else {
+//     const isPause = {
+//       state: false,
+//     };
+//   }
+// };
+
 // console.log(createFieldArr(10, 40, 5));
 
-export { createElement, createFieldArr, splitArray, setResultToLS, getResultFromLS };
+export {
+  createElement,
+  createFieldArr,
+  splitArray,
+  setResultToLS,
+  getResultFromLS,
+  // setLocalStorage,
+  // getLocalStorage,
+};
