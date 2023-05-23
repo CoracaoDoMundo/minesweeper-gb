@@ -90,6 +90,8 @@ class Field {
     this.timer.textContent = '00:00';
     this.stopTimer();
     this.relaunchTimer();
+    this.marksCounterNum = 0;
+    this.rewriteMarksNum();
     if (this.pauseState.state === true) {
       this.pauseState.state = false;
       document.querySelector('.pause').textContent = 'Pause';
