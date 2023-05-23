@@ -31,11 +31,13 @@ class Toggle {
         document.body.style.setProperty('--main-color', '#000000');
         document.body.style.setProperty('--second-color', '#ffffff');
         document.body.style.setProperty('--shadow-main-color', '#0000008a');
+        document.querySelector('.close').classList.remove('closeDarkTheme');
         this.theme = 'light';
       } else if (event.target.className === 'inputToggleDark' || event.target.className === 'labelToggleDark') {
         document.body.style.setProperty('--main-color', '#ffffff');
         document.body.style.setProperty('--second-color', '#000000');
         document.body.style.setProperty('--shadow-main-color', '#ffffff8a');
+        document.querySelector('.close').classList.add('closeDarkTheme');
         this.theme = 'dark';
       }
     });

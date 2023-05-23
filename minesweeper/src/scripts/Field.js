@@ -20,10 +20,14 @@ import ghostTrap from '../assets/img/ghost-trap.png';
 import marshmallowMan from '../assets/img/marshmallow-man.png';
 import openCellSound from '../assets/sounds/cell-open.mp3';
 import gameOverSound from '../assets/sounds/game-over.mp3';
+import victorySound from '../assets/sounds/hooray-sound.mp3';
+import markSound from '../assets/sounds/mark-sound.mp3';
 import mainTheme from '../assets/sounds/Ray_Parker_Jr._-_Ghostbusters.mp3';
 
 const gameOverAudio = new Audio(gameOverSound);
 const openCellAudio = new Audio(openCellSound);
+const victoryAudio = new Audio(victorySound);
+const markAudio = new Audio(markSound);
 
 class Field {
   constructor(
@@ -39,6 +43,8 @@ class Field {
     this.input = input;
     this.closedCells = this.fieldSize ** 2;
     this.gameOverSound = gameOverAudio;
+    this.victorySound = victoryAudio;
+    this.markSound = markAudio;
     this.soundsState = soundsState;
     this.musicState = musicState;
     this.pauseState = pauseState;
@@ -271,6 +277,7 @@ class Field {
         this.covers[i][j].style.border = 'none';
       }
     }
+    this.victorySound.play();
     this.popup = new Popup(document.body, this.toggle.theme);
     this.popup.render();
     this.popup.header.textContent = 'Congratulations!';
@@ -374,13 +381,13 @@ class Field {
 
   clickRightBtn(event) {
     event.preventDefault();
-    // console.log(event.target.parentNode);
     if (
       event.target.className === 'cover' &&
       event.target.getAttribute('isflaged') === 'false' &&
       event.target.getAttribute('isopen') === 'false'
     ) {
       this.marksCounterNum += 1;
+      this.markSound.play();
       this.rewriteMarksNum();
       event.target.setAttribute('isflaged', 'true');
       event.target.insertAdjacentHTML(
