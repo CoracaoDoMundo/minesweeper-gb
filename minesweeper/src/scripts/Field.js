@@ -71,7 +71,7 @@ class Field {
     this.createMarksCounter(this.timerWrapper);
     this.item = createElement('div', ['field'], fieldWrapper);
 
-    this.fillStartField(`${this.item.clientWidth / this.fieldSize}px`);
+    this.fillStartField();
     this.addEventListeners();
   }
 
@@ -91,7 +91,7 @@ class Field {
     this.counterNum = -1;
     this.countMoves();
     this.item.textContent = '';
-    this.fillStartField(`${this.item.clientWidth / this.fieldSize}px`);
+    this.fillStartField();
     this.closedCells = this.fieldSize ** 2;
     this.timer.textContent = '00:00';
     this.stopTimer();
@@ -279,7 +279,9 @@ class Field {
         this.covers[i][j].style.border = 'none';
       }
     }
-    this.victorySound.play();
+    if (this.soundsState.state === true) {
+      this.victorySound.play();
+    }
     this.popup = new Popup(document.body, this.toggle.theme);
     this.popup.render();
     this.popup.header.textContent = 'Congratulations!';
@@ -325,10 +327,20 @@ class Field {
         }
       }
     }
-    if (this.counterNum === 0) {
+    if (
+      event.target.className === 'field' ||
+      event.target.className === 'cell' ||
+      event.target.classList.contains('blocker') ||
+      event.target.className === 'signImg' ||
+      event.target.className === 'slimerImg' ||
+      event.target.getAttribute('isflaged') === 'true'
+    ) {
+      return;
+    } else if (this.counterNum === 0) {
       if (
         event.target.className === 'signImg' ||
-        event.target.getAttribute('isflaged') === 'true'
+        event.target.getAttribute('isflaged') === 'true' ||
+        event.target.className === 'field'
       ) {
         return;
       }
@@ -344,11 +356,6 @@ class Field {
       if (this.soundsState.state === true) {
         openCellAudio.play();
       }
-    } else if (event.target.className === 'blocker') {
-    } else if (
-      event.target.className === 'signImg' ||
-      event.target.getAttribute('isflaged') === 'true'
-    ) {
     } else if (this.fieldArr[x][y] !== 'g') {
       if (event.target.getAttribute('isopen') !== 'true') {
         this.countMoves();
@@ -378,6 +385,8 @@ class Field {
         `<img src="${marshmallowMan}" class="marshmallowManPic">`
       );
       this.restartGame();
+    } else {
+      return;
     }
   }
 
@@ -389,7 +398,9 @@ class Field {
       event.target.getAttribute('isopen') === 'false'
     ) {
       this.marksCounterNum += 1;
-      this.markSound.play();
+      if (this.soundsState.state === true) {
+        this.markSound.play();
+      }
       this.rewriteMarksNum();
       event.target.setAttribute('isflaged', 'true');
       event.target.insertAdjacentHTML(
