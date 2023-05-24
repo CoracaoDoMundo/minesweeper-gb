@@ -4,6 +4,10 @@
   --main-color: #000000;
   --second-color: #ffffff;
   --shadow-main-color: #0000008a;
+  --width: min(450px, 90vw);
+  --height: min(450px, 90vw);
+  --cell-num: 10;
+  --cell-size: calc(var(--width) / var(--cell-num));
 }
 
 body {
@@ -98,7 +102,10 @@ body {
   display: flex;
   flex-wrap: wrap;
   position: relative;
-  width: 430px;
+  width: var(--width);
+  height: var(--height);
+  /* width: 430px;
+  height: 430px; */
   height: fit-content;
   border: 2px solid var(--main-color);
   box-shadow: 3px 3px 3px 0px var(--shadow-main-color);
@@ -109,6 +116,8 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
+  width: var(--cell-size);
+  height: var(--cell-size);
   font-weight: 100;
   font-size: 0.8em;
   border: 1px solid var(--main-color);
@@ -333,9 +342,10 @@ body {
     font-size: 0.5em;
   }
 
-  .field {
+  /* .field {
     width: 400px;
-  }
+    height: 400px;
+  } */
 
   .popupHeader {
     font-size: 1.2em;
@@ -365,9 +375,10 @@ body {
       font-size: 0.4em;
     }
 
-    .field {
+    /* .field {
       width: 370px;
-    }
+      height: 370px;
+    } */
 
     .label {
       font-size: 0.5em;

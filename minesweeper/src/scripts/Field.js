@@ -104,10 +104,12 @@ class Field {
     }
   }
 
-  fillStartField(width) {
+  fillStartField() {
+    this.cellsArr = [];
     for (let i = 0; i < this.fieldSize ** 2; i++) {
-      const newCell = new Cell();
-      this.item.innerHTML += newCell.render(width, this.item, i);
+      this.newCell = new Cell();
+      this.item.innerHTML += this.newCell.render(this.item, i);
+      this.cellsArr.push(this.newCell.item);
     }
     this.covers = splitArray(
       Array.from(document.querySelectorAll('.cover')),

@@ -20,17 +20,6 @@ class Input {
   }
 
   setMinesQuantity() {
-    // this.item.addEventListener('focusin', () => {
-    //   this.popup = new Popup(document.body);
-    //   this.popup.render();
-    //   this.popup.header.textContent = 'Attention!';
-    //   this.popup.text.textContent = 'This will restart the game!';
-    //   this.popup.item.insertAdjacentHTML(
-    //     'beforeend',
-    //     '<p class="popupText"> Are you sure you want to do this? </p>'
-    //   );
-    // });
-
     this.item.addEventListener(
       'input',
       () => {

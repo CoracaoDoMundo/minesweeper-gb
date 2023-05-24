@@ -11,15 +11,13 @@ class Cell {
     this.textContent = value;
   }
 
-  render(width, parent, num) {
+  render(parent, num) {
     this.item = createElement('div', ['cell'], parent);
     const valueNum = createElement('span', ['value'], this.item);
     const cover = createElement('div', ['cover'], this.item);
     cover.textContent = num;
     cover.setAttribute('isopen', this.state);
     cover.setAttribute('isflaged', this.mark);
-    this.item.style.width = width;
-    this.item.style.height = width;
     return this.item.outerHTML;
   }
 }

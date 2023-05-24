@@ -55,18 +55,21 @@ class Button {
       this.item.nextSibling.textContent = 'Medium';
       this.item.nextSibling.nextSibling.textContent = 'Large';
       this.field.fieldSize = 10;
+      document.documentElement.style.setProperty('--cell-num', 10);
       this.field.restartGame();
     } else if (event.target.textContent === 'Medium') {
       this.item.previousSibling.textContent = 'Small';
       event.target.textContent = 'Restart';
       this.item.nextSibling.textContent = 'Large';
       this.field.fieldSize = 15;
+      document.documentElement.style.setProperty('--cell-num', 15);
       this.field.restartGame();
     } else if (event.target.textContent === 'Large') {
       this.item.previousSibling.previousSibling.textContent = 'Small';
       this.item.previousSibling.textContent = 'Medium';
       event.target.textContent = 'Restart';
       this.field.fieldSize = 25;
+      document.documentElement.style.setProperty('--cell-num', 25);
       this.field.restartGame();
     }
   }

@@ -31,9 +31,9 @@ class Toggle {
         event.target.className === 'inputToggleLight' ||
         event.target.className === 'labelToggleLight'
       ) {
-        document.body.style.setProperty('--main-color', '#000000');
-        document.body.style.setProperty('--second-color', '#ffffff');
-        document.body.style.setProperty('--shadow-main-color', '#0000008a');
+        document.documentElement.style.setProperty('--main-color', '#000000');
+        document.documentElement.style.setProperty('--second-color', '#ffffff');
+        document.documentElement.style.setProperty('--shadow-main-color', '#0000008a');
         if (document.querySelector('.close')) {
           document.querySelector('.close').classList.remove('closeDarkTheme');
         }
@@ -42,9 +42,9 @@ class Toggle {
         event.target.className === 'inputToggleDark' ||
         event.target.className === 'labelToggleDark'
       ) {
-        document.body.style.setProperty('--main-color', '#ffffff');
-        document.body.style.setProperty('--second-color', '#000000');
-        document.body.style.setProperty('--shadow-main-color', '#ffffff8a');
+        document.documentElement.style.setProperty('--main-color', '#ffffff');
+        document.documentElement.style.setProperty('--second-color', '#000000');
+        document.documentElement.style.setProperty('--shadow-main-color', '#ffffff8a');
         if (document.querySelector('.close')) {
           document.querySelector('.close').classList.add('closeDarkTheme');
         }

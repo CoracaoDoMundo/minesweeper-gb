@@ -11,8 +11,6 @@ import Toggle from './scripts/Toggle.js';
 
 import {
   relaunchGameFromLS,
-  //   setLocalStorage,
-  //   getLocalStorage,
 } from './scripts/service-functions.js';
 
 const isSoundsOn = {
@@ -21,34 +19,6 @@ const isSoundsOn = {
 const isMusicOn = {
   state: true,
 };
-
-// window.addEventListener('load', () => {
-//   if (localStorage.getItem('music')) {
-//     const isMusicOn = {
-//       state: localStorage.getItem('music'),
-//     };
-// //   } else if (
-// //     localStorage.getItem('music') === 'null' ||
-// //     localStorage.getItem('music') === 'undefined'
-// //   ) {
-// //     const isMusicOn = {
-// //       state: true,
-// //     };
-//   }
-
-//   if (localStorage.getItem('sounds')) {
-//     const isPause = {
-//       state: localStorage.getItem('sounds'),
-//     };
-// //   } else if (
-// //     localStorage.getItem('sounds') === 'null' ||
-// //     localStorage.getItem('sounds') === 'undefined'
-// //   ) {
-// //     const isPause = {
-// //       state: false,
-// //     };
-//   }
-// });
 
 const isPause = {
   state: false,
@@ -152,7 +122,3 @@ window.addEventListener('load', () => {
     relaunchGameFromLS(gameField);
   }
 });
-
-// window.addEventListener('beforeunload', () => {
-//   setLocalStorage(isSoundsOn, isMusicOn);
-// });

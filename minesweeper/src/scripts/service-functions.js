@@ -92,7 +92,10 @@ const saveGame = (text, arr, size, seconds, minutes, moves, marks) => {
 
 const relaunchGameFromLS = (field) => {
   field.item.innerHTML = localStorage.getItem('gameField');
-  field.fieldArr = splitArray(localStorage.getItem('gameArr').split(','), localStorage.getItem('fieldSize'));
+  field.fieldArr = splitArray(
+    localStorage.getItem('gameArr').split(','),
+    localStorage.getItem('fieldSize')
+  );
   field.s = Number(localStorage.getItem('seconds'));
   field.m = Number(localStorage.getItem('minutes'));
   field.startTimer();
@@ -143,6 +146,4 @@ export {
   getResultFromLS,
   saveGame,
   relaunchGameFromLS,
-  // setLocalStorage,
-  // getLocalStorage,
 };
