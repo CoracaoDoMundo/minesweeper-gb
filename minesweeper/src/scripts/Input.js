@@ -1,7 +1,6 @@
 // Class for crate an input field
 
 import { createElement } from './service-functions.js';
-import Popup from './Popup.js';
 
 class Input {
   render(container, labelText, id, field) {

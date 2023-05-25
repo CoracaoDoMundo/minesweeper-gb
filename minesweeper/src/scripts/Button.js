@@ -4,7 +4,7 @@
 import {
   createElement,
   getResultFromLS,
-  saveGame,
+  saveGameToLS,
 } from './service-functions.js';
 import Popup from './Popup.js';
 import buttonSound from '../assets/sounds/button-sound.mp3';
@@ -24,8 +24,14 @@ class Button {
 
   render(container, newClass = 'button') {
     this.item = createElement('div', ['button'], container);
-    this.item.textContent = this.name;
     this.item.classList.add(newClass);
+    if (this.item.classList.contains('music') && localStorage.getItem('musicState') === 'off') {
+      this.name = 'Music on';
+    }
+    if (this.item.classList.contains('sound') && localStorage.getItem('soundsState') === 'off') {
+      this.name = 'Sounds on';
+    }
+    this.item.textContent = this.name;
     this.pushBtn();
   }
 
@@ -35,7 +41,7 @@ class Button {
 
   pushBtn() {
     this.item.addEventListener('click', (event) => {
-      if (this.soundsState.state === true) {
+      if (this.soundsState.state === 'on') {
         this.playBtnSound();
       }
       this.restartGame(event);
@@ -120,24 +126,28 @@ class Button {
   }
 
   onOffSounds() {
-    if (this.item.textContent === 'Sounds off') {
-      this.item.textContent = 'Sounds on';
-      this.soundsState.state = false;
-    } else if (this.item.textContent === 'Sounds on') {
-      this.item.textContent = 'Sounds off';
-      this.soundsState.state = true;
+    if (this.item.textContent === 'Sounds on' || this.item.textContent === 'Sounds off') {
+      if (this.soundsState.state === 'on') {
+        this.item.textContent = 'Sounds on';
+        this.soundsState.state = 'off';
+      } else if (this.soundsState.state === 'off') {
+        this.item.textContent = 'Sounds off';
+        this.soundsState.state = 'on';
+      }
     }
   }
 
   onOffMusic() {
-    if (this.item.textContent === 'Music off') {
-      this.item.textContent = 'Music on';
-      this.musicState.state = false;
-      this.field.controlMusicOnPage();
-    } else if (this.item.textContent === 'Music on') {
-      this.item.textContent = 'Music off';
-      this.musicState.state = true;
-      this.field.controlMusicOnPage();
+    if (this.item.textContent === 'Music on' || this.item.textContent === 'Music off') {
+      if (this.musicState.state === 'on') {
+        this.item.textContent = 'Music on';
+        this.musicState.state = 'off';
+        this.field.controlMusicOnPage();
+      } else if (this.musicState.state === 'off') {
+        this.item.textContent = 'Music off';
+        this.musicState.state = 'on';
+        this.field.controlMusicOnPage();
+      }
     }
   }
 
@@ -177,7 +187,7 @@ class Button {
 
   saveGame(event) {
     if (event.target.textContent === 'Save') {
-      saveGame(
+      saveGameToLS(
         this.field.item.innerHTML,
         this.field.fieldArr,
         this.field.fieldSize,

@@ -80,7 +80,7 @@ const getResultFromLS = () => {
   }
 };
 
-const saveGame = (text, arr, size, seconds, minutes, moves, marks) => {
+const saveGameToLS = (text, arr, size, seconds, minutes, moves, marks) => {
   localStorage.setItem('gameField', text);
   localStorage.setItem('gameArr', arr);
   localStorage.setItem('fieldSize', size);
@@ -109,34 +109,18 @@ const relaunchGameFromLS = (field) => {
   );
 };
 
-// const setLocalStorage = () => {
-//   localStorage.setItem('music', isMusicOn.state);
-//   localStorage.setItem('sounds', isSoundsOn.state);
-// };
+const saveSoundsMusicStatesToLS = (isMusicOn, isSoundsOn) => {
+  localStorage.setItem('musicState', isMusicOn);
+  localStorage.setItem('soundsState', isSoundsOn);
+};
 
-// const getLocalStorage = () => {
-//   if (localStorage.getItem('music')) {
-//     const isMusicOn = {
-//       state: localStorage.getItem('music'),
-//     };
-//   } else {
-//     const isMusicOn = {
-//       state: true,
-//     };
-//   }
+const getMusicStateFromLS = (field) => {
+  field.musicState.state = localStorage.getItem('musicState');
+};
 
-//   if (localStorage.getItem('sounds')) {
-//     const isPause = {
-//       state: localStorage.getItem('sounds'),
-//     };
-//   } else {
-//     const isPause = {
-//       state: false,
-//     };
-//   }
-// };
-
-// console.log(createFieldArr(10, 40, 5));
+const getSoundsStateFromLS = (field) => {
+  field.soundsState.state = localStorage.getItem('soundsState');
+};
 
 export {
   createElement,
@@ -144,6 +128,9 @@ export {
   splitArray,
   setResultToLS,
   getResultFromLS,
-  saveGame,
+  saveGameToLS,
   relaunchGameFromLS,
+  saveSoundsMusicStatesToLS,
+  getSoundsStateFromLS,
+  getMusicStateFromLS,
 };

@@ -80,9 +80,9 @@ class Field {
   }
 
   controlMusicOnPage() {
-    if (this.musicState.state === true) {
+    if (this.musicState.state === 'on') {
       this.audio.play();
-    } else if (this.musicState.state === false) {
+    } else if (this.musicState.state === 'off') {
       this.audio.pause();
     }
   }
@@ -279,7 +279,7 @@ class Field {
         this.covers[i][j].style.border = 'none';
       }
     }
-    if (this.soundsState.state === true) {
+    if (this.soundsState.state === 'on') {
       this.victorySound.play();
     }
     this.popup = new Popup(document.body, this.toggle.theme);
@@ -353,13 +353,13 @@ class Field {
       event.target.style.border = 'none';
       event.target.setAttribute('isopen', true);
       this.openCells(x, y, this.covers, this.values);
-      if (this.soundsState.state === true) {
+      if (this.soundsState.state === 'on') {
         openCellAudio.play();
       }
     } else if (this.fieldArr[x][y] !== 'g') {
       if (event.target.getAttribute('isopen') !== 'true') {
         this.countMoves();
-        if (this.soundsState.state === true) {
+        if (this.soundsState.state === 'on') {
           openCellAudio.play();
         }
       }
@@ -373,7 +373,7 @@ class Field {
       event.target.style.border = 'none';
       event.target.setAttribute('isopen', true);
       this.controlFieldBlocker();
-      if (this.soundsState.state === true) {
+      if (this.soundsState.state === 'on') {
         this.gameOverSound.play();
       }
       this.popup = new Popup(document.body, this.toggle.theme);
@@ -398,7 +398,7 @@ class Field {
       event.target.getAttribute('isopen') === 'false'
     ) {
       this.marksCounterNum += 1;
-      if (this.soundsState.state === true) {
+      if (this.soundsState.state === 'on') {
         this.markSound.play();
       }
       this.rewriteMarksNum();

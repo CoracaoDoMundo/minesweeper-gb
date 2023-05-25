@@ -11,13 +11,16 @@ import Toggle from './scripts/Toggle.js';
 
 import {
   relaunchGameFromLS,
+  saveSoundsMusicStatesToLS,
+  getSoundsStateFromLS,
+  getMusicStateFromLS,
 } from './scripts/service-functions.js';
 
 const isSoundsOn = {
-  state: true,
+  state: 'on',
 };
 const isMusicOn = {
-  state: true,
+  state: 'on',
 };
 
 const isPause = {
@@ -40,20 +43,42 @@ const gameField = new Field(
 );
 gameField.render(document.body);
 
+window.addEventListener('load', () => {
+  if (
+    localStorage.getItem('gameField') !== null &&
+    localStorage.getItem('gameField') !== undefined
+  ) {
+    relaunchGameFromLS(gameField);
+  }
+
+  if (!localStorage.getItem('musicState')) {
+    isMusicOn.state = 'on';
+  } else {
+    getMusicStateFromLS(gameField);
+  }
+
+  if (!localStorage.getItem('soundsState')) {
+    isSoundsOn.state = 'on';
+  } else {
+    getSoundsStateFromLS(gameField);
+  }
+});
+
 const musicBtn = new Button(
   gameField,
   isSoundsOn,
   isMusicOn,
   isPause,
-  'Music off'
+  'Music off',
 );
 musicBtn.render(buttonsWrapper.item, 'music');
+
 const soundBtn = new Button(
   gameField,
   isSoundsOn,
   isMusicOn,
   isPause,
-  'Sounds off'
+  'Sounds off',
 );
 soundBtn.render(buttonsWrapper.item, 'sound');
 const pauseBtn = new Button(gameField, isSoundsOn, isMusicOn, isPause, 'Pause');
@@ -114,11 +139,9 @@ themeToggle.render(
   gameField
 );
 
-window.addEventListener('load', () => {
-  if (
-    localStorage.getItem('gameField') !== null &&
-    localStorage.getItem('gameField') !== undefined
-  ) {
-    relaunchGameFromLS(gameField);
-  }
+window.addEventListener('beforeunload', () => {
+  saveSoundsMusicStatesToLS(
+    gameField.musicState.state,
+    gameField.soundsState.state
+  );
 });
