@@ -379,10 +379,6 @@ body {
     font-size: 0.8em;
   }
 
-  /* .toggleField {
-    height: 15px;
-  } */
-
   .labelToggleLight,
   .labelToggleDark {
     width: 20px;
@@ -397,12 +393,17 @@ body {
     font-size: 1.1em;
   }
 
+  .button {
+    font-size: 0.3em;
+  }
+
   .fieldWrapper {
     gap: 20px;
   }
 
   .settingsWrapper {
     gap: 10px;
+    width: 90%;
   }
 
   body {
@@ -438,5 +439,8 @@ body {
   .ghostTrapPic {
     width: 60%;
     margin: 40px;
+  }
+  .label {
+    font-size: 0.45em;
   }
 }

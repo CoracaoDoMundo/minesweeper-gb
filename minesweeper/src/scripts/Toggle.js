@@ -13,7 +13,7 @@ class Toggle {
     this.inputLight.checked = true;
     this.labelLight = createElement('label', ['labelToggleLight'], this.item);
     this.labelLight.setAttribute('for', idLight);
-    this.labelLight.textContent = '☀';
+    this.labelLight.innerHTML = '&#9728;&#xFE0E;';
     this.inputDark = createElement('input', ['inputToggleDark'], this.item);
     this.inputDark.setAttribute('id', idDark);
     this.inputDark.setAttribute('type', 'radio');
@@ -21,7 +21,7 @@ class Toggle {
     this.inputDark.setAttribute('name', name);
     this.labelDark = createElement('label', ['labelToggleDark'], this.item);
     this.labelDark.setAttribute('for', idDark);
-    this.labelDark.textContent = '☽';
+    this.labelDark.innerHTML = '&#9789;&#xFE0E;';
     this.theme = theme;
     this.field = field;
     this.switchTheme();
@@ -35,7 +35,10 @@ class Toggle {
       ) {
         document.documentElement.style.setProperty('--main-color', '#000000');
         document.documentElement.style.setProperty('--second-color', '#ffffff');
-        document.documentElement.style.setProperty('--shadow-main-color', '#0000008a');
+        document.documentElement.style.setProperty(
+          '--shadow-main-color',
+          '#0000008a'
+        );
         if (document.querySelector('.close')) {
           document.querySelector('.close').classList.remove('closeDarkTheme');
         }
@@ -46,7 +49,10 @@ class Toggle {
       ) {
         document.documentElement.style.setProperty('--main-color', '#ffffff');
         document.documentElement.style.setProperty('--second-color', '#000000');
-        document.documentElement.style.setProperty('--shadow-main-color', '#ffffff8a');
+        document.documentElement.style.setProperty(
+          '--shadow-main-color',
+          '#ffffff8a'
+        );
         if (document.querySelector('.close')) {
           document.querySelector('.close').classList.add('closeDarkTheme');
         }
