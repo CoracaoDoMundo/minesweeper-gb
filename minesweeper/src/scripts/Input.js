@@ -1,4 +1,4 @@
-// Class for crate an input field
+// Class for create an input field
 
 import { createElement } from './service-functions.js';
 

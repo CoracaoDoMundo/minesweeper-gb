@@ -13,6 +13,7 @@ class Toggle {
     this.inputLight.checked = true;
     this.labelLight = createElement('label', ['labelToggleLight'], this.item);
     this.labelLight.setAttribute('for', idLight);
+    this.labelLight.textContent = '☀';
     this.inputDark = createElement('input', ['inputToggleDark'], this.item);
     this.inputDark.setAttribute('id', idDark);
     this.inputDark.setAttribute('type', 'radio');
@@ -20,6 +21,7 @@ class Toggle {
     this.inputDark.setAttribute('name', name);
     this.labelDark = createElement('label', ['labelToggleDark'], this.item);
     this.labelDark.setAttribute('for', idDark);
+    this.labelDark.textContent = '☽';
     this.theme = theme;
     this.field = field;
     this.switchTheme();

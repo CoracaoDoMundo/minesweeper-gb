@@ -6,17 +6,14 @@ class Popup {
   constructor(container, theme) {
     this.item = createElement('div', ['popup'], container);
     this.theme = theme;
+    this.popupOpen = false;
   }
 
   render() {
     if (this.theme === 'light') {
       this.closeElement = createElement('div', ['close'], this.item);
     } else if (this.theme === 'dark') {
-      this.closeElement = createElement(
-        'div',
-        ['closeDarkTheme'],
-        this.item
-      );
+      this.closeElement = createElement('div', ['closeDarkTheme'], this.item);
     }
 
     this.header = createElement('h1', ['popupHeader'], this.item);
@@ -28,6 +25,9 @@ class Popup {
     this.closeElement.addEventListener('click', () => {
       this.item.remove();
     });
+    if (this.popupOpen === true) {
+      this.popupOpen = false;
+    }
   }
 }
 

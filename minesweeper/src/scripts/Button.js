@@ -152,9 +152,11 @@ class Button {
   }
 
   showResults(event) {
+    console.log(this.popup);
     if (event.target.textContent === 'Results') {
       this.popup = new Popup(document.body, this.field.toggle.theme);
       this.popup.render();
+      this.popup.popupOpen = true;
       this.popup.header.textContent = 'Results';
       const result = getResultFromLS();
       if (result === null || result === undefined) {

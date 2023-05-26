@@ -104,8 +104,6 @@ body {
   position: relative;
   width: var(--width);
   height: var(--height);
-  /* width: 430px;
-  height: 430px; */
   height: fit-content;
   border: 2px solid var(--main-color);
   box-shadow: 3px 3px 3px 0px var(--shadow-main-color);
@@ -268,7 +266,9 @@ body {
 
 .labelToggleLight,
 .labelToggleDark {
+  display: block;
   background-color: #ffffff;
+  color: #000000;
   font-size: 12px;
   text-align: center;
   width: 25px;
@@ -342,11 +342,6 @@ body {
     font-size: 0.5em;
   }
 
-  /* .field {
-    width: 400px;
-    height: 400px;
-  } */
-
   .popupHeader {
     font-size: 1.2em;
     margin: 0;
@@ -354,47 +349,94 @@ body {
 
   .popupTextSmall {
     font-size: 0.5em;
+    line-height: 1.7em;
   }
 
   .popupText {
     font-size: 0.6em;
   }
+}
+@media (max-width: 550px) {
+  .label {
+    font-size: 0.65em;
+  }
+}
 
-  @media (max-width: 550px) {
-    .label {
-      font-size: 0.65em;
-    }
+@media (max-width: 499px) {
+  .header {
+    font-size: 1.3em;
   }
 
-  @media (max-width: 499px) {
-    .header {
-      font-size: 1.3em;
-    }
-
-    .button {
-      font-size: 0.4em;
-    }
-
-    /* .field {
-      width: 370px;
-      height: 370px;
-    } */
-
-    .label {
-      font-size: 0.5em;
-    }
-
-    .input {
-      font-size: 0.8em;
-    }
-
-    .toggleField {
-      height: 15px;
-    }
-
-    .labelToggleLight, 
-    .labelToggleDark {
-      width: 20px;
+  .button {
+    font-size: 0.4em;
   }
+
+  .label {
+    font-size: 0.5em;
+  }
+
+  .input {
+    font-size: 0.8em;
+  }
+
+  /* .toggleField {
+    height: 15px;
+  } */
+
+  .labelToggleLight,
+  .labelToggleDark {
+    width: 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  .headerWrapper {
+    margin: 1em 0 0;
+  }
+  .header {
+    font-size: 1.1em;
+  }
+
+  .fieldWrapper {
+    gap: 20px;
+  }
+
+  .settingsWrapper {
+    gap: 10px;
+  }
+
+  body {
+    gap: 20px;
+  }
+
+  .timer,
+  .counter,
+  .marksCounter {
+    font-size: 0.9em;
+  }
+
+  .popup {
+    height: 50vh;
+    width: 70%;
+    justify-content: flex-start;
+  }
+
+  .popupHeader {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+  }
+
+  .marshmallowManPic {
+    width: 70%;
+    margin: 40px 10px 0;
+  }
+
+  .popupText {
+    text-align: center;
+    font-size: 0.8em;
+  }
+  .ghostTrapPic {
+    width: 60%;
+    margin: 40px;
   }
 }
