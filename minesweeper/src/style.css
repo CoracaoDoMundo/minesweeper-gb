@@ -394,7 +394,7 @@ body {
   }
 
   .button {
-    font-size: 0.3em;
+    font-size: 0.2em;
   }
 
   .fieldWrapper {
@@ -417,19 +417,17 @@ body {
   }
 
   .popup {
-    height: 50vh;
+    height: fit-content;
     width: 70%;
     justify-content: flex-start;
   }
 
   .popupHeader {
-    font-size: 1.1em;
-    margin-bottom: 20px;
+    font-size: 1em;
   }
 
   .marshmallowManPic {
     width: 70%;
-    margin: 40px 10px 0;
   }
 
   .popupText {
